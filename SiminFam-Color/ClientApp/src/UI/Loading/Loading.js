@@ -1,13 +1,13 @@
 import React from 'react'
 import src from '../../Assets/images/loading.png'
-import './Loading.module.css';
-import Wrapper from '../../Shared/Wrapper/Wrapper';
+import * as styles from './Loading.module.css';
 
 const Loading = props => {
     return (
         <React.Fragment>
             {props.show && <img src={src}
-                style={props.style ? props.style : null} />}
+                style={props.style ? props.style : null}
+                className={!props.style && styles.loading} />}
         </React.Fragment>
     )
 }

@@ -1,15 +1,14 @@
 import React from 'react';
-import Wrapper from '../../Shared/Wrapper/Wrapper';
 import logo from '../../Assets/images/logo.png'
-import './Logo.module.css';
+import * as styles from './Logo.module.scss';
 
 const Logo = props => {
     return (
-        <Wrapper>
-            <a className="logo" href="/">
-                <img src={logo} alt="logo" className="logo-img" />
+        <React.Fragment>
+            <a className={styles.logo} href="/">
+                <img src={logo} alt="logo" />
             </a>
-        </Wrapper>
+        </React.Fragment>
     )
 }
 
