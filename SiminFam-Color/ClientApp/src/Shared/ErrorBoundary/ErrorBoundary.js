@@ -1,5 +1,5 @@
 import React from "react";
-import './ErrorBoundary.module.css';
+import styles from './ErrorBoundary.module.scss';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.errorInfo) {
       return (
-        <div className="error-page">
+        <div className={styles.errorPage}>
           <h1 className="text-center">⚠</h1>
           <h4 className="text-center mb-0">
             ...خطایی در نرم افزار رخ داده است
