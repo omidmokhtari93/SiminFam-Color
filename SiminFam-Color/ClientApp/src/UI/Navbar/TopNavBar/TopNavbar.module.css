@@ -1,0 +1,38 @@
+.dropdown-menu {
+    right: 0 !important;
+    left: none;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.navbar-nav {
+    padding-right: 0;
+}
+
+.dropdown-menu {
+    top: 80% !important;
+}
+
+.nav-link {
+    padding: 10px 15px !important;
+}
+
+.navbar {
+    background-color: #e4f7ff;
+    font-size: 12pt;
+    direction: rtl;
+    text-align: center !important;
+}
+
+@media (max-width: 705px) {
+    #navigationBar {
+        display: none;
+        width: -webkit-fill-available;
+    }
+    #top-navbar {
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+    }
+}

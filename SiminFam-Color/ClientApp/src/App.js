@@ -1,11 +1,11 @@
 import React from 'react';
-import Logo from './UI/Logo/Logo'
 import Loading from './UI/Loading/Loading'
+import TopNavBar from './UI/Navbar/TopNavBar/TopNavbar'
 
 function App() {
   return (
     <React.Fragment>
-      <Logo />
+      <TopNavBar />
       <Loading show={true} />
     </React.Fragment>
   );
