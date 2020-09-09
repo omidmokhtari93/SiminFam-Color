@@ -6,7 +6,7 @@ function App() {
   return (
     <React.Fragment>
       <Logo />
-      <Loading show={true}/>
+      <Loading show={true} />
     </React.Fragment>
   );
 }

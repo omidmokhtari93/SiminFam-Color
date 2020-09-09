@@ -6,7 +6,7 @@ const Loading = props => {
     return (
         <React.Fragment>
             {props.show && <img src={src}
-                style={props.style ? props.style : null}
+                style={props.style && props.style}
                 className={!props.style && styles.loading} />}
         </React.Fragment>
     )
