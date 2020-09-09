@@ -1,5 +1,5 @@
 @media (max-width: 705px) {
-    .side-open-button {
+    .sideOpenButton {
         padding: 10px 15px;
         position: absolute;
         left: 0;
@@ -7,7 +7,7 @@
 }
 
 @media (min-width: 706px) {
-    .side-open-button {
+    .sideOpenButton {
         display: none;
     }
 }

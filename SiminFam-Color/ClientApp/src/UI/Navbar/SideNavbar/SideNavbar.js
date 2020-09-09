@@ -1,5 +1,5 @@
 import React from 'react';
-import './SideNavbar.module.css';
+import styles from './SideNavbar.scss';
 import NavBarItems from '../NavBarItems/NavBarItem';
 import CloseButton from '../CloseButton/CloseButton';
 import Backdrop from '../../Backdrop/Backdrop';
@@ -8,7 +8,7 @@ const SideNavbar = props => {
     return (
         <React.Fragment>
             <Backdrop show={props.show} dismiss={props.close}/>
-            <div className="side-nav"
+            <div className="sideNav"
                 style={props.show
                     ? { left: 0 }
                     : { left: '-50%' }}>

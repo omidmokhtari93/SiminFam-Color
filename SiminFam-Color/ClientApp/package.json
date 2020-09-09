@@ -14,7 +14,11 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "style-loader": "^1.2.1"
+    "style-loader": "^1.2.1",
+    "bootstrap": "^4.5.2",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "prop-types": "^15.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TopNavbar.module.css';
+import './TopNavbar.scss';
 import SideNavar from '../SideNavbar/SideNavbar'
 import ShowButton from '../ShowButton/ShowButton';
 import NavBarItems from '../NavBarItems/NavBarItem';

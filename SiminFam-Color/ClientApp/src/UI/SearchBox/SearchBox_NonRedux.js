@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SearchBox.module.css';
+import styles from './SearchBox.module.scss';
 import searcIcon from '../../Assets/images/search.png'
 import Loading from '../Loading/Loading';
 import http from 'axios';
@@ -79,15 +79,15 @@ class SearchBoxNoRedux extends Component {
 
     render() {
         return (
-            <div className="search-box light-sans" ref={this.searchBoxRef} name={this.props.name}
+            <div className={styles.searchBox} ref={this.searchBoxRef} name={this.props.name}
                 style={this.props.width
                     ? { width: this.props.width + "rem" }
                     : { width: '100%' }}>
-                {this.state.showSelected && <div className="searchbox-selected">
+                {this.state.showSelected && <div className={styles.searchBoxSelected}>
                     <span>{this.state.selectedText}</span>
                     <span onClick={this.removeSelected}>✖</span>
                 </div>}
-                <img src={searcIcon} className="search-icon" />
+                <img src={searcIcon} className={styles.searchIcon} />
                 <Loading show={this.state.loading} style={this.state.loadingStyle} />
                 <input placeholder={this.props.placeholder} autoComplete="off"
                     value={this.state.value}

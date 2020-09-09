@@ -1,10 +1,10 @@
 import React from 'react';
-import './CloseButton.module.css';
+import styles from './CloseButton.module.css';
 import Logo from '../../../UI/Logo/Logo';
 
 const CloseButton = props => {
     return (
-        <div className="close-btn" onClick={() => props.close('close')}>
+        <div className={styles.closeBtn} onClick={() => props.close('close')}>
             ✖
         </div>
     )

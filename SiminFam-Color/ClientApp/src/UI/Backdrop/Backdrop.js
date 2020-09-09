@@ -1,10 +1,10 @@
 import React from 'react';
-import './Backdrop.module.scss';
+import styles from './Backdrop.module.scss';
 import propTypes from 'prop-types';
 
 const Backdrop = props => {
     return (
-        <div className="backdrop"
+        <div className={styles.backdrop}
             onClick={() => props.dismiss('close')}
             style={props.show
                 ? { display: 'block' }

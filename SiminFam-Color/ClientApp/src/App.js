@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Loading from './UI/Loading/Loading'
 import TopNavBar from './UI/Navbar/TopNavBar/TopNavbar'
+import ErrorBoundary from './Shared/ErrorBoundary/ErrorBoundary'
+import { Switch, Route } from 'react-router-dom';
+import ErrorPage from './Shared/ErrorPage/ErrorPage';
+
+const LoadingElement = <div className="text-center">
+  <Loading show={true} style={{ width: '30px' }} />
+</div>
 
 function App() {
   return (
     <React.Fragment>
       <TopNavBar />
-      <Loading show={true} />
+      <div className="container sans p-4 border mt-3">
+        <ErrorBoundary>
+          <Suspense fallback={LoadingElement}>
+            <Switch>
+              <Route render={() => <ErrorPage />} />
+            </Switch>
+          </Suspense>
+        </ErrorBoundary>
+      </div>
     </React.Fragment>
   );
 }
