@@ -1,0 +1,8 @@
+.DatePicker {
+    height: 38px !important;
+    display: block !important;
+}
+.DatePicker__input {
+    height: 38px !important;
+    font-size: 1rem !important;
+}

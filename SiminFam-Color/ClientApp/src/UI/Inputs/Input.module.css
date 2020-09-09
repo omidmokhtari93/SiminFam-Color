@@ -1,0 +1,34 @@
+.react-input {
+    width: 100%;
+    direction: rtl;
+}
+
+.react-input input {
+    width: 100%;
+}
+
+.react-input .message {
+    color: red;
+    font-size: 9pt;
+}
+
+.labels-area {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.DatePicker {
+    height: 38px !important;
+    display: block !important;
+}
+.DatePicker__input {
+    height: 38px !important;
+    font-size: 1rem !important;
+}
+.input-group-prepend button:hover {
+    background-color: wheat;
+}
+
+.input-group-prepend button {
+    outline: none;
+}
