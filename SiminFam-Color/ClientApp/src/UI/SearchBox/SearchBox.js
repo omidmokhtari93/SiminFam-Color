@@ -99,7 +99,7 @@ class SearchBox extends Component {
         )
     }
 }
-SearchBoxNoRedux.propTypes = {
+SearchBox.propTypes = {
     reqParam: propTypes.array,
     url: propTypes.string,
     resParam: propTypes.array,

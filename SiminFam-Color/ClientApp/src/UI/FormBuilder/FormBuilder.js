@@ -1,11 +1,11 @@
 import React from 'react';
-import Wrapper from '../../Shared/Wrapper/Wrapper';
 import Input from '../../UI/Inputs/Input';
 import propTypes from 'prop-types';
 import { ColumnCreator } from './ColumnCreator';
 
 const FormBuilder = props => {
     let create = e => {
+        if (!props.inputs) return null;
         const elementsLength = Object.keys(props.inputs).length;
         const elements = Object.keys(props.inputs).map((key, idx) => {
             return <Input {...props.inputs[key]}
@@ -33,9 +33,9 @@ const FormBuilder = props => {
     }
 
     return (
-        <Wrapper>
+        <React.Fragment>
             {create()}
-        </Wrapper>
+        </React.Fragment>
     )
 }
 

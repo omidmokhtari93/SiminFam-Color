@@ -13,6 +13,6 @@ export const ColumnCreator = column => {
         case "12":
             return "col-md-1"
         default:
-            "col-md-4"
+            return "col-md-4"
     }
 }
