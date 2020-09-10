@@ -4,7 +4,7 @@ import SideNavar from '../SideNavbar/SideNavbar'
 import ShowButton from '../ShowButton/ShowButton';
 import NavBarItems from '../NavBarItems/NavBarItem';
 import Logo from '../../../UI/Logo/Logo';
-import SearchBoxNoRedux from '../../../UI/SearchBox/SearchBox_NonRedux';
+//import SearchBoxNoRedux from '../../../UI/SearchBox/SearchBox';
 
 class Navbar extends Component {
     state = {
@@ -15,7 +15,7 @@ class Navbar extends Component {
             resParam: ['golName', 'format', 'color', 'colorType', 'code'], //response parameters
             id: "id", //this identity related choosen item in dropdown
             width: "25",
-            placeholder: "جستجوی سریع گل",
+            placeholder: "جستجوی سریع",
             handleResponse: (res) => this.handleSearch(res), // return an object contain Flower Name and Flower Id
             removeOnChoose: false,
             timeout: "400",
@@ -43,9 +43,9 @@ class Navbar extends Component {
                     <ul className="navbar-nav pr-4" id="navigationBar">
                         <NavBarItems />
                     </ul>
-                    <SearchBoxNoRedux
+                    {/* <SearchBoxNoRedux
                         {...this.state.searhcBox}
-                    />
+                    /> */}
                     <ShowButton show={this.handleShowSideBar} />
                 </nav>
             </React.Fragment>

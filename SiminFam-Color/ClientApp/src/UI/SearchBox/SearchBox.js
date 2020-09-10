@@ -5,7 +5,7 @@ import Loading from '../Loading/Loading';
 import http from 'axios';
 import propTypes from 'prop-types';
 
-class SearchBoxNoRedux extends Component {
+class SearchBox extends Component {
     state = {
         value: '',
         timeOut: null,
@@ -111,4 +111,4 @@ SearchBoxNoRedux.propTypes = {
     name: propTypes.string,
     id: propTypes.string
 }
-export default SearchBoxNoRedux;
+export default SearchBox;
