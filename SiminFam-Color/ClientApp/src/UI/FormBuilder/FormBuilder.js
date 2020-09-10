@@ -16,10 +16,11 @@ const FormBuilder = props => {
         const rows = Math.ceil(elementsLength / 3);
         const form = [];
         let counter = 0;
+        let column = !props.column ? 3 : props.column;
         for (let i = 0; i < rows; i++) {
-            const input = [...Array(parseInt(props.column))].map(x => {
+            const input = [...Array(parseInt(column))].map(x => {
                 let item = <div key={counter}
-                    className={ColumnCreator(props.column)}>
+                    className={ColumnCreator(column)}>
                     {elements[counter]}
                 </div>
                 counter++;

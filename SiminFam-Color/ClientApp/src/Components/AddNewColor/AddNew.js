@@ -5,7 +5,7 @@ import * as inputType from '../../Shared/inputTypes';
 import Buttons from '../../UI/Buttons/Button';
 import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 
-class AddNewColor extends Component {
+class AddNew extends Component {
     state = {
         inputs: {
             name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی" },
@@ -67,4 +67,4 @@ class AddNewColor extends Component {
     }
 }
 
-export default AddNewColor;
+export default AddNew;

@@ -5,7 +5,7 @@ import ErrorBoundary from './Shared/ErrorBoundary/ErrorBoundary'
 import { Switch, Route, Router } from 'react-router-dom';
 import ErrorPage from './Shared/ErrorPage/ErrorPage';
 
-const AddNewColor = lazy(() => import('./Components/AddNewColor/AddNewColor'));
+const AddNew = lazy(() => import('./Components/AddNewColor/AddNew'));
 const Setting = lazy(() => import('./Components/Setting/Setting'))
 
 const LoadingElement = <div className="text-center">
@@ -20,7 +20,7 @@ function App() {
         <ErrorBoundary>
           <Suspense fallback={LoadingElement}>
             <Switch>
-              <Route path="/addnew" render={() => <AddNewColor />} />
+              <Route path="/addnew" render={() => <AddNew />} />
               <Route path="/setting" render={() => <Setting />} />
               <Route render={() => <ErrorPage />} />
             </Switch>
