@@ -17,7 +17,10 @@ const NavBarItems = props => {
                 </div>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" activeClassName="active" exact to="/">گزارشات</NavLink>
+                <NavLink className="nav-link" activeClassName="activeLink" exact to="/reports">گزارشات</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink className="nav-link" activeClassName="activeLink" exact to="/setting">تنظیمات</NavLink>
             </li>
         </React.Fragment>
     )
