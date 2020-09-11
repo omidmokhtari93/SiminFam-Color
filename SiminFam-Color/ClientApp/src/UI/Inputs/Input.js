@@ -38,8 +38,10 @@ class Input extends Component {
             }
         }
         ///////////////////////////////////////////////////////set attribute for inputs////////////////////////////////////////
-        let isValid = (this.props.touched && (this.props.value.trim().length > 0) && this.props.required) ? 'is-valid' : '';
-        let isInvalid = (this.props.touched &&  (this.props.value.trim().length == 0) && this.props.required) ? 'is-invalid' : '';
+        let value = (this.props.value['year'])
+            ? ('' + this.props.value.year).length : this.props.value.trim().length;
+        let isValid = (this.props.touched && (value > 0) && this.props.required) ? 'is-valid' : '';
+        let isInvalid = (this.props.touched && (value == 0) && this.props.required) ? 'is-invalid' : '';
         let attr = {
             value: this.props.value,
             type: this.props.type,
