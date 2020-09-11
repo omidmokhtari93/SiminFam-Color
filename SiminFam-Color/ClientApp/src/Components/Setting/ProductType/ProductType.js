@@ -3,13 +3,27 @@ import * as inputType from '../../../Shared/inputTypes';
 import FormBuilder from '../../../UI/FormBuilder/FormBuilder';
 import * as buttonTypes from '../../../UI/Buttons/ButtonTypes';
 import Buttons from '../../../UI/Buttons/Button';
-import {ButtonActivation} from '../../../UI/Buttons/ButtonActivation';
-import {CheckInputsValidation} from '../../../UI/Inputs/CheckInputsValidation';
+import { ButtonActivation } from '../../../UI/Buttons/ButtonActivation';
+import { CheckInputsValidation } from '../../../UI/Inputs/CheckInputsValidation';
+import Table from '../../../UI/Table/Table';
+import * as tbl from '../../../Shared/TableCreationData'
 
 class ProductType extends Component {
     state = {
         inputs: {
             name: { value: '', text: '', required: true, touched: false, type: inputType.text, label: "نوع ورودی" }
+        },
+        table: {
+            creationData: {
+                header: [...tbl.productHeader],
+                body: [...tbl.productBody],
+            },
+            url: "",
+            buttons: {
+                edit: 'ویرایش'
+            },
+            editData: [],
+            tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
             [buttonTypes.submit]: {
@@ -43,6 +57,10 @@ class ProductType extends Component {
 
     }
 
+    handleTableButtonsClick = (key, obj) => {
+
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -55,6 +73,7 @@ class ProductType extends Component {
                     elements={this.state.buttons}
                     handleChange={(type) => this.handleButtonClick(type)}
                 />
+                <Table {...this.state.table} />
             </React.Fragment>
         )
     }

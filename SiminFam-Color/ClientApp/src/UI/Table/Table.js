@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import './Table.module.css'
+import './Table.scss'
 import http from 'axios';
 import Loading from '../Loading/Loading'
-import Wrapper from "../../Shared/Wrapper/Wrapper";
 import TablePagination from "./TablePagination/TablePagination";
 import TableSearch from "./TableSearch/TableSearch";
 
@@ -73,8 +72,8 @@ class Table extends Component {
 
     render() {
         return (
-            <Wrapper>
-                <TableSearch enable={this.props.allowSearch}
+            <React.Fragment>
+                <TableSearch enable={this.props.allowSearch ? false : true}
                     handleRequest={this.fetchData} />
                 <div className="table-responsive">
                     <table className="react-table">
@@ -104,7 +103,7 @@ class Table extends Component {
                             currentPage={this.state.currentPage} />}
                     </table>
                 </div>
-            </Wrapper>
+            </React.Fragment>
         )
     }
 }
