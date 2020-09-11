@@ -73,7 +73,7 @@ class Table extends Component {
     render() {
         return (
             <React.Fragment>
-                <TableSearch enable={this.props.allowSearch ? false : true}
+                <TableSearch enable={!this.props.allowSearch && false}
                     handleRequest={this.fetchData} />
                 <div className="table-responsive">
                     <table className="react-table">
