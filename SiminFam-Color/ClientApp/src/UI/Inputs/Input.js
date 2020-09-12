@@ -4,6 +4,7 @@ import * as inputTypes from '../../Shared/inputTypes';
 import SearchBox from '../SearchBox/SearchBox';
 import DatePicker from 'react-modern-calendar-datepicker';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import { data } from 'jquery';
 
 class Input extends Component {
     ref = React.createRef();
@@ -19,7 +20,7 @@ class Input extends Component {
     createOptions = () => {
         let options = null;
         this.props.options &&
-            (options = this.props.options.map((op, idx) => <option key={idx} value={op.value}>{op.name}</option>))
+            (options = this.props.options.map((op, idx) => <option key={idx} value={op.value}>{op.text}</option>))
         return options;
     }
 
@@ -39,7 +40,7 @@ class Input extends Component {
         }
         ///////////////////////////////////////////////////////set attribute for inputs////////////////////////////////////////
         let value = (this.props.value['year'])
-            ? ('' + this.props.value.year).length : this.props.value.trim().length;
+            ? ('' + this.props.value.year).length : ('' + this.props.value).trim().length;
         let isValid = (this.props.touched && (value > 0) && this.props.required) ? 'is-valid' : '';
         let isInvalid = (this.props.touched && (value == 0) && this.props.required) ? 'is-invalid' : '';
         let attr = {
@@ -49,7 +50,7 @@ class Input extends Component {
             name: this.props.name,
             onChange: this.props.type == inputTypes.select
                 ? (e) => this.props.handleChange(e.target.name, e.target.value, e.target.options[e.target.selectedIndex].text)
-                : (e) => this.props.handleChange(e.target.name, e.target.value)
+                : (e) => this.props.handleChange(e.target.name, e.target.value, e.target.value)
         }
         switch (this.props.type) {
             //////////////////////////////////////////////////////////TEXT/////////////////////////////////////////////////////////
@@ -84,7 +85,7 @@ class Input extends Component {
             case inputTypes.date:
                 return <DatePicker
                     value={this.props.value}
-                    onChange={(date) => this.props.handleChange(this.props.name, date)}
+                    onChange={(date) => this.props.handleChange(this.props.name, date, (date.year + '/' + date.month + '/' + date.day))}
                     shouldHighlightWeekends
                     locale="fa"
                     slideAnimationDuration="0.1s"
@@ -95,7 +96,7 @@ class Input extends Component {
             case inputTypes.search:
                 return <SearchBox
                     {...this.props}
-                    handleResponse={(e) => this.props.handleChange(this.props.name, e.id)}
+                    handleResponse={(e) => this.props.handleChange(this.props.name, e.id, e.text)}
                 />
             ////////////////////////////////////////////////////////////CONTROL_SELECT//////////////////////////////////////////////////
             case inputTypes.control_select:

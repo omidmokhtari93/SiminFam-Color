@@ -4,11 +4,20 @@ import FormBuilder from '../../UI/FormBuilder/FormBuilder';
 import * as inputType from '../../Shared/inputTypes';
 import Buttons from '../../UI/Buttons/Button';
 import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
+const searchBoxConfig = {
+    url: 'http://2.180.37.75/anbargol/api/search',
+    reqParam: ['name', 'code'],
+    resParam: ['GolName', 'Format', 'Color', 'ColorType', 'Code'],
+    id: 'Id',
+    placeholder: 'جستجو',
+    removeOnChoose: true,
+    timeout: '200'
+}
 
 class AddNew extends Component {
     state = {
         inputs: {
-            name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی" },
+            name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی", options: [{ value: 50, text: 'salam' }] },
             tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد موقت" },
             finalCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد نهایی" },
             color: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع رنگ" },
@@ -16,6 +25,16 @@ class AddNew extends Component {
             enterDate: { value: '', text: '', required: true, touched: false, type: inputType.date, label: "تاریخ ورود" },
             company: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نام شرکت" },
             price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" },
+            alaki: {
+                value: '',
+                text: '',
+                required: true,
+                touched: false,
+                type: inputType.search,
+                label: "الکی",
+                removeSelected: (name, value, text) => this.handleChange(name, value, text),
+                ...searchBoxConfig
+            },
         },
         buttons: {
             [buttonTypes.submit]: {
@@ -37,16 +56,22 @@ class AddNew extends Component {
     }
 
     handleChange = (name, value, text) => {
-        console.log(name, value, text)
+        //console.log(name, value, text)
         let inputs = { ...this.state.inputs };
         inputs[name].value = value;
         inputs[name].text = text;
         inputs[name].touched = true;
-        this.setState({ ...inputs })
+        this.setState({ ...inputs }, () => {
+            console.log(this.state.inputs)
+        })
     }
 
     handleButtonClick = type => {
 
+    }
+
+    removeSearch = (name, value, text) => {
+        console.log(name, value, text);
     }
 
     render() {

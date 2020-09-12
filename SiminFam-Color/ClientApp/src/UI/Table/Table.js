@@ -24,7 +24,7 @@ class Table extends Component {
         this.gotoPage(1)
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.state.url != nextProps.url) {
             this.setState({ url: nextProps.url }, () => {
                 this.gotoPage(1)
@@ -47,6 +47,15 @@ class Table extends Component {
             })
     }
 
+    handleTableButtonsClick = (btn, row) => {
+        this.props.tableClick(btn, row);
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
     createBody = e => {
         const serverDataLength = this.state.body.length;
         const body = this.props.creationData.body;
@@ -55,7 +64,7 @@ class Table extends Component {
             const td = body.map((x, idx) => <td key={idx}>{this.state.body[i][x]}</td>);
             const buttons = this.props.buttons && Object.keys(this.props.buttons).map(btn => {
                 return <td key={btn + i}>
-                    <a onClick={() => this.props.tableClick(btn, this.state.body[i])}>
+                    <a onClick={() => this.handleTableButtonsClick(btn, this.state.body[i])}>
                         {this.props.buttons[btn]}
                     </a>
                 </td>

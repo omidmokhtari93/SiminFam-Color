@@ -4,9 +4,11 @@ import FormBuilder from '../../../UI/FormBuilder/FormBuilder';
 import * as buttonTypes from '../../../UI/Buttons/ButtonTypes';
 import Buttons from '../../../UI/Buttons/Button';
 import { ButtonActivation } from '../../../UI/Buttons/ButtonActivation';
+import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import { CheckInputsValidation } from '../../../UI/Inputs/CheckInputsValidation';
 import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
+import { ResetInputs } from '../../../Shared/ResetInputs';
 
 class ProductType extends Component {
     state = {
@@ -18,7 +20,7 @@ class ProductType extends Component {
                 header: [...tbl.productHeader],
                 body: [...tbl.productBody],
             },
-            url: "",
+            url: "/api/GetProducts",
             buttons: {
                 edit: 'ویرایش'
             },
@@ -54,11 +56,37 @@ class ProductType extends Component {
     }
 
     handleButtonClick = type => {
-
+        switch (type) {
+            case buttonTypes.cancel:
+                this.setState({
+                    ...visibleButton(this.state.buttons, buttonTypes.submit),
+                    ...ResetInputs(this.state.inputs)
+                })
+            case buttonTypes.edit:
+                let formData = {};
+                Object.keys(this.state.inputs).map(inp => {
+                    formData[inp].text = this.state.inputs[inp].text
+                    formData[inp].value = this.state.inputs[inp].value
+                })
+                console.log(formData)
+                this.setState({
+                    ...ResetInputs(this.state.inputs),
+                    ...visibleButton(this.state.buttons, buttonTypes.submit),
+                })
+        }
     }
 
     handleTableButtonsClick = (key, obj) => {
-
+        var inputs = { ...this.state.inputs }
+        inputs.name.value = obj.id;
+        inputs.name.text = obj.product;
+        inputs.name.touched = true;
+        ButtonActivation(this.state.buttons, CheckInputsValidation(inputs))
+        this.setState({ ...inputs })
+        this.setState({
+            ...visibleButton(this.state.buttons, [buttonTypes.cancel, buttonTypes.edit]),
+            ...ButtonActivation(this.state.buttons, CheckInputsValidation(inputs))
+        })
     }
 
     render() {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import styles from './SearchBox.module.scss';
 import searcIcon from '../../Assets/images/search.png'
 import Loading from '../Loading/Loading';
@@ -18,20 +19,31 @@ class SearchBox extends Component {
             top: "9px",
         },
         showSelected: false,
-        selectedText: ''
+        selectedText: '',
+        selectedValues: {
+            value: '',
+            text: ''
+        }
     }
     searchBoxRef = React.createRef();
 
     componentDidMount() {
-        document.addEventListener('click', (e) => {
-            (!this.searchBoxRef.current.contains(e.target)) &&
-                this.setState({ result: [], loading: false, value: '' })
-
-        })
+        document.addEventListener('click', this.handleClickOutside, true);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click');
+        console.log('unmounted');
+        document.removeEventListener('click', null, true);
+    }
+
+    handleClickOutside = event => {
+        // (!this.searchBoxRef.current.contains(e.target)) &&
+        // this.setState({ result: [], loading: false, value: '' })
+        const domNode = ReactDOM.findDOMNode(this);
+        console.log(domNode)
+        if (!domNode || !domNode.contains(event.target)) {
+            this.setState({ result: [], loading: false, value: '' })
+        }
     }
 
     handleSearch = value => {
@@ -50,7 +62,7 @@ class SearchBox extends Component {
 
     removeSelected = () => {
         this.setState({ showSelected: false });
-        this.props.removeSelected(this.props.name)
+        this.props.removeSelected(this.props.name, '', '')
     }
 
     handleApiReq = value => {
@@ -61,19 +73,28 @@ class SearchBox extends Component {
         })
     }
 
-    showReport = (name, id) => {
+    showReport = (text, id) => {
+        let st = { ...this.state }
+        st.showSelected = true;
+        st.selectedText = text;
+        st.result = [];
+        st.selectedValues = {
+            ...st.selectedValues,
+            value: id,
+            text: text
+        }
         this.props.removeOnChoose
-            && this.setState({ showSelected: true, selectedText: name, result: [] })
-        this.props.handleResponse({ name: name, id: id })
+            && this.setState({ ...st })
+        this.props.handleResponse({ text: text, id: id })
         this.setState({ result: [] })
     }
 
     createDropdown = () => {
         const items = this.state.result.map(obj => {
-            return { name: this.props.resParam.map(key => obj[key]).join(' / '), id: obj[this.props.id] }
+            return { text: this.props.resParam.map(key => obj[key]).join(' / '), id: obj[this.props.id] }
         })
         return items.map((item, index) => {
-            return <li key={index} onClick={() => this.showReport(item.name, item.id)}>{item.name}</li>
+            return <li key={index} onClick={() => this.showReport(item.text, item.id)}>{item.text}</li>
         })
     }
 
