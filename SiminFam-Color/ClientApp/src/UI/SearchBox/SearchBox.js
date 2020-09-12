@@ -7,42 +7,45 @@ import http from 'axios';
 import propTypes from 'prop-types';
 
 class SearchBox extends Component {
-    state = {
-        value: '',
-        timeOut: null,
-        loading: false,
-        result: [],
-        loadingStyle: {
-            width: "20px",
-            position: "absolute",
-            left: "4px",
-            top: "9px",
-        },
-        showSelected: false,
-        selectedText: '',
-        selectedValues: {
+    constructor(props) {
+        super(props)
+        this.state = {
             value: '',
-            text: ''
+            timeOut: null,
+            loading: false,
+            result: [],
+            loadingStyle: {
+                width: "20px",
+                position: "absolute",
+                left: "4px",
+                top: "9px",
+            },
+            showSelected: false,
+            selectedText: '',
+            selectedValues: {
+                value: '',
+                text: ''
+            }
         }
+        this.searchBoxRef = React.createRef();
     }
-    searchBoxRef = React.createRef();
+
+
 
     componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true);
+        document.addEventListener('mousedown', this.handleClickOutside)
     }
 
     componentWillUnmount() {
-        console.log('unmounted');
-        document.removeEventListener('click', null, true);
+        document.removeEventListener('mousedown', this.handleClickOutside)
     }
 
-    handleClickOutside = event => {
-        // (!this.searchBoxRef.current.contains(e.target)) &&
-        // this.setState({ result: [], loading: false, value: '' })
-        const domNode = ReactDOM.findDOMNode(this);
-        console.log(domNode)
-        if (!domNode || !domNode.contains(event.target)) {
-            this.setState({ result: [], loading: false, value: '' })
+    handleClickOutside = (event) => {
+        if (this.state.result.length > 0) {
+            const domNode = ReactDOM.findDOMNode(this);
+            if (!domNode || !domNode.contains(event.target)) {
+                this.setState({ result: [], loading: false, value: '' })
+            }
         }
     }
 
