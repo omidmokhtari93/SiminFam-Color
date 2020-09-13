@@ -11,7 +11,6 @@ import * as tbl from '../../../Shared/TableCreationData'
 import { ResetInputs } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
 import http from 'axios';
-import { param } from 'jquery';
 
 class ProductType extends Component {
     state = {
