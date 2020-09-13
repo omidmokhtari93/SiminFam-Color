@@ -4,6 +4,7 @@ import http from 'axios';
 import Loading from '../Loading/Loading'
 import TablePagination from "./TablePagination/TablePagination";
 import TableSearch from "./TableSearch/TableSearch";
+import { object } from "prop-types";
 
 class Table extends Component {
     state = {
@@ -17,18 +18,28 @@ class Table extends Component {
         allPages: 0,
         currentPage: 1,
         keyword: "",
-        url: this.props.url
+        url: this.props.url,
+        action: {}
     }
 
     componentDidMount() {
+        this.setState({ action: this.props.action })
         this.gotoPage(1)
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (this.state.url != nextProps.url) {
             this.setState({ url: nextProps.url }, () => {
                 this.gotoPage(1)
             })
+        }
+        if (nextProps.action.type == 'edit') {
+            let st = { ...this.state };
+            let updatedBody = st.body.find(obj => (obj.id == nextProps.action.data.id))
+            Object.keys(nextProps.action.data).map(key => {
+                updatedBody[key] = nextProps.action.data[key]
+            })
+            this.setState({ ...st })
         }
     }
 

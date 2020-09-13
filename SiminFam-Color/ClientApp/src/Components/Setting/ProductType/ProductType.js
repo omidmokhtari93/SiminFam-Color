@@ -9,11 +9,12 @@ import { CheckInputsValidation } from '../../../UI/Inputs/CheckInputsValidation'
 import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { ResetInputs } from '../../../Shared/ResetInputs';
+import * as actions from '../../../Shared/Actions';
 
 class ProductType extends Component {
     state = {
         inputs: {
-            name: { value: '', text: '', required: true, touched: false, type: inputType.text, label: "نوع ورودی" }
+            product: { value: '', text: '', required: true, touched: false, type: inputType.text, label: "نوع ورودی" }
         },
         table: {
             creationData: {
@@ -24,7 +25,10 @@ class ProductType extends Component {
             buttons: {
                 edit: 'ویرایش'
             },
-            editData: null,
+            action: {
+                type: '',
+                data: null
+            },
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
@@ -44,61 +48,59 @@ class ProductType extends Component {
                 text: 'انصراف',
             }
         },
-        formState: 'submit'
+        formAction: {
+            type: '',
+            data: null
+        },
     }
 
     handleChange = (name, value, text) => {
-        switch (this.state.formState) {
-            case 'submit':
-                var inputs = { ...this.state.inputs }
-                inputs[name].value = value;
-                inputs[name].text = text;
-                inputs[name].touched = true;
-                ButtonActivation(this.state.buttons, CheckInputsValidation(inputs))
-                this.setState({ ...inputs })
-                break;
-            case 'edit':
-
-                break;
+        var st = { ...this.state }
+        st.inputs[name].value = value;
+        st.inputs[name].text = text;
+        st.inputs[name].touched = true;
+        if (st.formAction.type == actions.edit) {
+            st.formAction.data.product = value
         }
+        ButtonActivation(this.state.buttons, CheckInputsValidation(st.inputs))
+        this.setState({ ...st })
     }
 
     handleButtonClick = type => {
+        let st = { ...this.state }
         switch (type) {
             case buttonTypes.cancel:
                 this.setState({
                     ...visibleButton(this.state.buttons, buttonTypes.submit),
                     ...ResetInputs(this.state.inputs)
                 })
+                break;
             case buttonTypes.edit:
-                let formData = {};
-                Object.keys(this.state.inputs).map(inp => {
-                    formData.text = this.state.inputs[inp].text
-                    formData.value = this.state.inputs[inp].value
+                st.table.action.data = { ...st.formAction.data }
+                st.table.action.type = actions.edit;
+                st.buttons = { ...visibleButton(this.state.buttons, buttonTypes.submit) }
+                st.inputs = { ...ResetInputs(this.state.inputs) }
+                this.setState({ ...st }, () => {
+                    st.table.action.type = actions.submit;
+                    st.table.action.data = null;
+                    this.setState({ ...st })
                 })
-                console.log(formData)
-                this.setState({
-                    ...ResetInputs(this.state.inputs),
-                    ...visibleButton(this.state.buttons, buttonTypes.submit),
-                })
+                break;
         }
     }
 
     handleTableButtonsClick = (key, obj) => {
-        let inputs = { ...this.state.inputs }
-        let table = { ...this.state.table }
-        table.editData = { ...obj };
-        inputs.name.value = obj.product;
-        inputs.name.text = obj.product;
-        inputs.name.touched = true;
-        ButtonActivation(this.state.buttons, CheckInputsValidation(inputs))
-        this.setState({
-            ...inputs,
-            ...table,
-            ...visibleButton(this.state.buttons, [buttonTypes.cancel, buttonTypes.edit]),
-            ...ButtonActivation(this.state.buttons, CheckInputsValidation(inputs)),
-            formState: 'edit'
-        })
+        let st = { ...this.state }
+        st.formAction.data = { ...obj };
+        st.formAction.type = actions.edit
+        st.inputs.product.value = obj.product;
+        st.inputs.product.text = obj.product;
+        st.inputs.product.touched = true;
+        st.buttons = {
+            ...visibleButton(st.buttons, [buttonTypes.cancel, buttonTypes.edit]),
+            ...ButtonActivation(st.buttons, CheckInputsValidation(st.inputs))
+        }
+        this.setState({ ...st })
     }
 
     render() {
