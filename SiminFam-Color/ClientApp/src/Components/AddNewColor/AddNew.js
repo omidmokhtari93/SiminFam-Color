@@ -4,15 +4,8 @@ import FormBuilder from '../../UI/FormBuilder/FormBuilder';
 import * as inputType from '../../Shared/inputTypes';
 import Buttons from '../../UI/Buttons/Button';
 import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
-const searchBoxConfig = {
-    url: 'http://2.180.37.75/anbargol/api/search',
-    reqParam: ['name', 'code'],
-    resParam: ['GolName', 'Format', 'Color', 'ColorType', 'Code'],
-    id: 'Id',
-    placeholder: 'جستجو',
-    removeOnChoose: true,
-    timeout: '200'
-}
+import Table from '../../UI/Table/Table';
+import * as tbl from '../../Shared/TableCreationData';
 
 class AddNew extends Component {
     state = {
@@ -24,17 +17,22 @@ class AddNew extends Component {
             weight: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "مقدار وارد شده" },
             enterDate: { value: '', text: '', required: true, touched: false, type: inputType.date, label: "تاریخ ورود" },
             company: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نام شرکت" },
-            price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" },
-            alaki: {
-                value: '',
-                text: '',
-                required: true,
-                touched: false,
-                type: inputType.search,
-                label: "الکی",
-                removeSelected: (name, value, text) => this.handleChange(name, value, text),
-                ...searchBoxConfig
+            price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" }
+        },
+        table: {
+            creationData: {
+                header: [...tbl.addNewColorEntryHeader],
+                body: [...tbl.addNewColorEntryBody],
             },
+            url: "/api/GetColorsEntry",
+            buttons: {
+                edit: 'ویرایش'
+            },
+            action: {
+                type: '',
+                data: null
+            },
+            tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
             [buttonTypes.submit]: {
@@ -53,6 +51,16 @@ class AddNew extends Component {
                 text: 'انصراف',
             }
         }
+    }
+
+    componentDidMount() {
+        this.handleSubmit('888')
+    }
+
+    handleSubmit = ({ city }) => {
+        console.log(city)
+        const { requestCurrentWeather, history } = this.props
+        //requestCurrentWeather(city, history)
     }
 
     handleChange = (name, value, text) => {
@@ -87,6 +95,7 @@ class AddNew extends Component {
                     elements={this.state.buttons}
                     handleChange={(type) => this.handleButtonClick(type)}
                 />
+                <Table {...this.state.table} />
             </React.Fragment>
         )
     }

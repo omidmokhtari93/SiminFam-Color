@@ -8,3 +8,7 @@ export const addCompanyBody = ['company'];
 
 export const addColorHeader = ['نام رنگ'];
 export const addColorBody = ['color'];
+
+
+export const addNewColorEntryHeader = ['نوع'];
+export const addNewColorEntryBody = [''];

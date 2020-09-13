@@ -4,13 +4,14 @@ import http from 'axios';
 import Loading from '../Loading/Loading'
 import TablePagination from "./TablePagination/TablePagination";
 import TableSearch from "./TableSearch/TableSearch";
-import { object } from "prop-types";
+import * as actions from '../../Shared/Actions';
 
 class Table extends Component {
     state = {
         body: [],
         loading: false,
-        colSpan: this.props.creationData.header.length + (this.props.buttons ? Object.keys(this.props.buttons).length : 0),
+        colSpan: this.props.creationData &&
+            (this.props.creationData.header.length + (this.props.buttons ? Object.keys(this.props.buttons).length : 0)),
         loadingStyle: {
             width: "30px",
             height: 'auto'
@@ -33,7 +34,7 @@ class Table extends Component {
                 this.gotoPage(1)
             })
         }
-        if (nextProps.action.type == 'edit') {
+        if (nextProps.action.type == actions.edit) {
             let st = { ...this.state };
             let updatedBody = st.body.find(obj => (obj.id == nextProps.action.data.id))
             Object.keys(nextProps.action.data).map(key => {
@@ -99,9 +100,10 @@ class Table extends Component {
                     <table className="react-table">
                         <thead>
                             <tr>
-                                {this.props.creationData.header.map((x, idx) => {
-                                    return <th key={idx}>{x}</th>
-                                })}
+                                {(this.props.creationData != undefined)
+                                    && this.props.creationData.header.map((x, idx) => {
+                                        return <th key={idx}>{x}</th>
+                                    })}
                                 {this.props.buttons && Object.keys(this.props.buttons).map(x => <th key={x + 100}></th>)}
                             </tr>
                         </thead>
