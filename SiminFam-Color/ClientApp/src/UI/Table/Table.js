@@ -34,12 +34,17 @@ class Table extends Component {
                 this.gotoPage(1)
             })
         }
-        if (nextProps.action.type == actions.edit) {
+        if (nextProps.action.type == actions.edit && 'id' in nextProps.action.data) {
             let st = { ...this.state };
             let updatedBody = st.body.find(obj => (obj.id == nextProps.action.data.id))
             Object.keys(nextProps.action.data).map(key => {
                 updatedBody[key] = nextProps.action.data[key]
             })
+            this.setState({ ...st })
+        }
+        if (nextProps.action.type == actions.submit && 'id' in nextProps.action.data) {
+            let st = { ...this.state };
+            st.body.push(nextProps.action.data)
             this.setState({ ...st })
         }
     }

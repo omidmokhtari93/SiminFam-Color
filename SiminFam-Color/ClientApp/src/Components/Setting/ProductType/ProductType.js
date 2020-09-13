@@ -10,6 +10,8 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { ResetInputs } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
+import http from 'axios';
+import { param } from 'jquery';
 
 class ProductType extends Component {
     state = {
@@ -27,7 +29,7 @@ class ProductType extends Component {
             },
             action: {
                 type: '',
-                data: null
+                data: {}
             },
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
@@ -50,7 +52,7 @@ class ProductType extends Component {
         },
         formAction: {
             type: '',
-            data: null
+            data: {}
         },
     }
 
@@ -82,8 +84,26 @@ class ProductType extends Component {
                 st.inputs = { ...ResetInputs(this.state.inputs) }
                 this.setState({ ...st }, () => {
                     st.table.action.type = actions.submit;
-                    st.table.action.data = null;
+                    st.table.action.data = {};
                     this.setState({ ...st })
+                })
+                break;
+            case buttonTypes.submit:
+                http.get('/api/SaveProduct', { params: { product: st.inputs.product.value } }).then(response => {
+                    let result = response.data;
+                    if (result.type == 'success') {
+                        st.table.action.data = {
+                            id: result.data.id,
+                            product: result.data.product
+                        }
+                        st.table.action.type = actions.submit;
+                        this.setState({ ...st }, () => {
+                            st.buttons = { ...visibleButton(this.state.buttons, buttonTypes.submit) }
+                            st.inputs = { ...ResetInputs(this.state.inputs) }
+                            st.table.action.data = {};
+                            this.setState({ ...st })
+                        })
+                    }
                 })
                 break;
         }

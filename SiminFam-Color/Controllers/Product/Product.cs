@@ -13,7 +13,7 @@ namespace SiminFam_Color.Controllers.Product
     [Route("api/[controller]")]
     public class Product : Controller
     {
-        public  GetConnction con = new GetConnction();
+        public GetConnction con = new GetConnction();
         [HttpGet("/api/GetProducts")]
         public IActionResult GetProductsActionResult()
         {
@@ -34,6 +34,30 @@ namespace SiminFam_Color.Controllers.Product
             {
                 rows = products,
                 pagesCount = 0
+            });
+        }
+
+        [HttpGet("/api/SaveProduct")]
+        public IActionResult SaveProductActionResult(string product)
+        {
+            if (product == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("insert into Products (Product) values (N'" + product + "') SELECT SCOPE_IDENTITY() ", con.Simin);
+            var id = cmd.ExecuteScalar();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ثبت شد",
+                type = "success",
+                data = new { id = id, product = product }
             });
         }
     }
