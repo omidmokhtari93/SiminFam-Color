@@ -37,10 +37,10 @@ namespace SiminFam_Color.Controllers.Product
             });
         }
 
-        [HttpGet("/api/SaveProduct")]
-        public IActionResult SaveProductActionResult(string product)
+        [HttpPost("/api/SaveProduct")]
+        public IActionResult SaveProductActionResult([FromBody] Products product)
         {
-            if (product == "")
+            if (product.Product == "")
             {
                 return Json(new
                 {
@@ -50,14 +50,14 @@ namespace SiminFam_Color.Controllers.Product
                 });
             }
             con.Simin.Open();
-            var cmd = new SqlCommand("insert into Products (Product) values (N'" + product + "') SELECT SCOPE_IDENTITY() ", con.Simin);
+            var cmd = new SqlCommand("insert into Products (Product) values (N'" + product.Product + "') SELECT SCOPE_IDENTITY() ", con.Simin);
             var id = cmd.ExecuteScalar();
             con.Simin.Close();
             return Json(new
             {
                 message = "با موفقیت ثبت شد",
                 type = "success",
-                data = new { id = id, product = product }
+                data = new { id = id, product = product.Product }
             });
         }
     }

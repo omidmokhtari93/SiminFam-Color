@@ -10,7 +10,7 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { ResetInputs } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
-import http from 'axios';
+import { product } from './ProductServices';
 
 class ProductType extends Component {
     state = {
@@ -88,8 +88,7 @@ class ProductType extends Component {
                 })
                 break;
             case buttonTypes.submit:
-                http.get('/api/SaveProduct', { params: { product: st.inputs.product.value } }).then(response => {
-                    let result = response.data;
+                product.save({ Product: st.inputs.product.value }).then(result => {
                     if (result.type == 'success') {
                         st.table.action.data = {
                             id: result.data.id,
