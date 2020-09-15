@@ -16,3 +16,8 @@ export const ResetInputs = inputs => {
     })
     return st;
 }
+
+
+export const resetForm = ({ state }) => {
+    return state;
+}
