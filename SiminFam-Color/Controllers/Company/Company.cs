@@ -36,5 +36,54 @@ namespace SiminFam_Color.Controllers.Company
                 pagesCount = 0
             });
         }
+
+        [HttpPost("/api/SaveCompany")]
+        public IActionResult SaveCompanyActionResult([FromBody] Companies company)
+        {
+            if (company.Company == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("insert into Companies (Company) values (N'" + company.Company + "') SELECT SCOPE_IDENTITY() ", con.Simin);
+            var id = cmd.ExecuteScalar();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ثبت شد",
+                type = "success",
+                data = new { id = id, company = company.Company }
+            });
+        }
+
+        [HttpPost("/api/EditCompany")]
+        public IActionResult EditCompanyActionResult([FromBody] Companies company)
+        {
+            if (company.Company == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("update Companies set Company = N'" + company.Company + "' " +
+                                     "where Id = " + company.Id + " ", con.Simin);
+            cmd.ExecuteNonQuery();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ویرایش شد",
+                type = "success",
+                data = new { id = company.Id, company = company.Company }
+            });
+        }
     }
 }

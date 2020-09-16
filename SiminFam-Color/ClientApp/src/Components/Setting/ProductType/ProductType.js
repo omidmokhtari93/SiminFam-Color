@@ -10,7 +10,7 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { resetForm } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
-import { product } from './Product.service';
+import { apiService } from '../../../Services/Services';
 
 class ProductType extends Component {
     state = {
@@ -65,11 +65,11 @@ class ProductType extends Component {
                 this.reset(st)
                 break;
             case buttonTypes.edit:
-                product.edit({ Id: st.editId, Product: st.inputs.product.value })
+                apiService.product.edit({ Id: st.editId, Product: st.inputs.product.value })
                 this.reset(st)
                 break;
             case buttonTypes.submit:
-                product.save({ Product: st.inputs.product.value }).then(result => {
+                apiService.product.add({ Product: st.inputs.product.value }).then(result => {
                     if (result.type == 'success') {
                         this.reset(st)
                     }

@@ -80,7 +80,7 @@ namespace SiminFam_Color.Controllers.Product
             con.Simin.Close();
             return Json(new
             {
-                message = "با موفقیت ثبت شد",
+                message = "با موفقیت ویرایش شد",
                 type = "success",
                 data = new { id = product.Id, product = product.Product }
             });
