@@ -9,7 +9,7 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import * as actions from '../../../Shared/Actions';
-import { apiService } from '../../../Services/Services';
+import { apiService } from '../../../Services/ApiServices';
 import { resetForm } from '../../../Shared/ResetInputs'
 class AddCompany extends Component {
     state = {

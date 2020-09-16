@@ -10,7 +10,7 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { resetForm } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
-import { apiService } from '../../../Services/Services';
+import { apiService } from '../../../Services/ApiServices';
 
 class ProductType extends Component {
     state = {

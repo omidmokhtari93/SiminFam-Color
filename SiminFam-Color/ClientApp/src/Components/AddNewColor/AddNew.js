@@ -54,13 +54,11 @@ class AddNew extends Component {
     }
 
     componentDidMount() {
-        this.handleSubmit('888')
+        
     }
 
-    handleSubmit = ({ city }) => {
-        console.log(city)
-        const { requestCurrentWeather, history } = this.props
-        //requestCurrentWeather(city, history)
+    getControls = () => {
+
     }
 
     handleChange = (name, value, text) => {

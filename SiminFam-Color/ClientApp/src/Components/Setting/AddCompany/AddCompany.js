@@ -10,7 +10,7 @@ import * as tbl from '../../../Shared/TableCreationData'
 import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import * as actions from '../../../Shared/Actions';
 import { resetForm } from '../../../Shared/ResetInputs';
-import { apiService } from '../../../Services/Services';
+import { apiService } from '../../../Services/ApiServices';
 
 class AddCompany extends Component {
     state = {
