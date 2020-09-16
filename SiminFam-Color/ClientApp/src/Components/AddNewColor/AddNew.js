@@ -6,11 +6,12 @@ import Buttons from '../../UI/Buttons/Button';
 import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 import Table from '../../UI/Table/Table';
 import * as tbl from '../../Shared/TableCreationData';
+import { options } from '../../Services/Options.service';
 
 class AddNew extends Component {
     state = {
         inputs: {
-            name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی", options: [{ value: 50, text: 'salam' }] },
+            name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی", options: [] },
             tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد موقت" },
             finalCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد نهایی" },
             color: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع رنگ" },
@@ -54,7 +55,12 @@ class AddNew extends Component {
     }
 
     componentDidMount() {
-        
+        let op = { ...this.state.inputs.name.options }
+        options.get.color().then(response => {
+            console.log(response)
+            op = [...response.Colors]
+            this.setState({ ...op })
+        })
     }
 
     getControls = () => {
