@@ -36,5 +36,54 @@ namespace SiminFam_Color.Controllers.Color
                 pagesCount = 0
             });
         }
+
+        [HttpPost("/api/SaveColor")]
+        public IActionResult SaveColorActionResult([FromBody] Colors color)
+        {
+            if (color.Color == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("insert into Colors (Color) values (N'" + color.Color + "') SELECT SCOPE_IDENTITY() ", con.Simin);
+            var id = cmd.ExecuteScalar();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ثبت شد",
+                type = "success",
+                data = new { id = id, color = color.Color }
+            });
+        }
+
+        [HttpPost("/api/EditColor")]
+        public IActionResult EditColorActionResult([FromBody] Colors color)
+        {
+            if (color.Color == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("update Colors set Color = N'" + color.Color + "' " +
+                                     "where Id = " + color.Id + " ", con.Simin);
+            cmd.ExecuteNonQuery();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ویرایش شد",
+                type = "success",
+                data = new { id = color.Id, color = color.Color }
+            });
+        }
     }
 }

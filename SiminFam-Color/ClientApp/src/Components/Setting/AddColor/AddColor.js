@@ -7,10 +7,10 @@ import { ButtonActivation } from '../../../UI/Buttons/ButtonActivation';
 import { CheckInputsValidation } from '../../../UI/Inputs/CheckInputsValidation';
 import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
-import { ResetInputs } from '../../../Shared/ResetInputs';
 import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import * as actions from '../../../Shared/Actions';
-
+import { apiService } from '../../../Services/Services';
+import { resetForm } from '../../../Shared/ResetInputs'
 class AddCompany extends Component {
     state = {
         inputs: {
@@ -25,10 +25,7 @@ class AddCompany extends Component {
             buttons: {
                 edit: 'ویرایش'
             },
-            action: {
-                type: '',
-                data: null
-            },
+            action: null,
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
@@ -48,10 +45,7 @@ class AddCompany extends Component {
                 text: 'انصراف',
             }
         },
-        formAction: {
-            type: '',
-            data: null
-        },
+        editId: null
     }
 
     handleChange = (name, value, text) => {
@@ -59,9 +53,6 @@ class AddCompany extends Component {
         st.inputs[name].value = value;
         st.inputs[name].text = text;
         st.inputs[name].touched = true;
-        if (st.formAction.type == actions.edit) {
-            st.formAction.data.color = value
-        }
         ButtonActivation(this.state.buttons, CheckInputsValidation(st.inputs))
         this.setState({ ...st })
     }
@@ -70,32 +61,35 @@ class AddCompany extends Component {
         let st = { ...this.state }
         switch (type) {
             case buttonTypes.cancel:
-                this.setState({
-                    ...visibleButton(this.state.buttons, buttonTypes.submit),
-                    ...ResetInputs(this.state.inputs)
-                })
+                this.reset(st)
                 break;
             case buttonTypes.edit:
-                st.table.action.data = { ...st.formAction.data }
-                st.table.action.type = actions.edit;
-                st.buttons = { ...visibleButton(this.state.buttons, buttonTypes.submit) }
-                st.inputs = { ...ResetInputs(this.state.inputs) }
-                this.setState({ ...st }, () => {
-                    st.table.action.type = actions.submit;
-                    st.table.action.data = null;
-                    this.setState({ ...st })
+                apiService.color.edit({ Id: st.editId, Color: st.inputs.color.value })
+                this.reset(st)
+                break;
+            case buttonTypes.submit:
+                apiService.color.add({ Color: st.inputs.color.value }).then(result => {
+                    if (result.type == 'success') {
+                        this.reset(st)
+                    }
                 })
                 break;
         }
     }
 
+    reset = st => {
+        this.setState({ ...resetForm(st) }, () => {
+            st.table.action = actions.submit;
+            this.setState({ ...st })
+        })
+    }
+
     handleTableButtonsClick = (key, obj) => {
         let st = { ...this.state }
-        st.formAction.data = { ...obj };
-        st.formAction.type = actions.edit
         st.inputs.color.value = obj.color;
         st.inputs.color.text = obj.color;
         st.inputs.color.touched = true;
+        st.editId = obj.id;
         st.buttons = {
             ...visibleButton(st.buttons, [buttonTypes.cancel, buttonTypes.edit]),
             ...ButtonActivation(st.buttons, CheckInputsValidation(st.inputs))
