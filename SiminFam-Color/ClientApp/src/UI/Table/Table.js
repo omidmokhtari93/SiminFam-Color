@@ -20,11 +20,10 @@ class Table extends Component {
         currentPage: 1,
         keyword: "",
         url: this.props.url,
-        action: {}
+        action: null
     }
 
     componentDidMount() {
-        this.setState({ action: this.props.action })
         this.gotoPage(1)
     }
 
@@ -34,18 +33,11 @@ class Table extends Component {
                 this.gotoPage(1)
             })
         }
-        if (nextProps.action.type == actions.edit && 'id' in nextProps.action.data) {
-            let st = { ...this.state };
-            let updatedBody = st.body.find(obj => (obj.id == nextProps.action.data.id))
-            Object.keys(nextProps.action.data).map(key => {
-                updatedBody[key] = nextProps.action.data[key]
-            })
-            this.setState({ ...st })
-        }
-        if (nextProps.action.type == actions.submit && 'id' in nextProps.action.data) {
-            let st = { ...this.state };
-            st.body.push(nextProps.action.data)
-            this.setState({ ...st })
+
+        if (nextProps.action == actions.update) {
+            setTimeout(() => {
+                this.fetchData(this.state.currentPage, "")
+            }, 200);
         }
     }
 
@@ -60,7 +52,7 @@ class Table extends Component {
                     pageNumber: currentPage
                 }
             }).then(x => {
-                this.setState({ body: [...x.data.rows], allPages: x.data.pagesCount, loading: false })
+                this.setState({ body: x.data.rows, allPages: x.data.pagesCount, loading: false })
             })
     }
 

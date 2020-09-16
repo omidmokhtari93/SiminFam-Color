@@ -8,7 +8,7 @@ import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import { CheckInputsValidation } from '../../../UI/Inputs/CheckInputsValidation';
 import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
-import { ResetInputs } from '../../../Shared/ResetInputs';
+import { resetForm } from '../../../Shared/ResetInputs';
 import * as actions from '../../../Shared/Actions';
 import { product } from './Product.service';
 
@@ -26,10 +26,7 @@ class ProductType extends Component {
             buttons: {
                 edit: 'ویرایش'
             },
-            action: {
-                type: '',
-                data: {}
-            },
+            action: null,
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
@@ -49,10 +46,7 @@ class ProductType extends Component {
                 text: 'انصراف',
             }
         },
-        formAction: {
-            type: '',
-            data: {}
-        },
+        editId: null
     }
 
     handleChange = (name, value, text) => {
@@ -60,9 +54,6 @@ class ProductType extends Component {
         st.inputs[name].value = value;
         st.inputs[name].text = text;
         st.inputs[name].touched = true;
-        if (st.formAction.type == actions.edit) {
-            st.formAction.data.product = value
-        }
         ButtonActivation(this.state.buttons, CheckInputsValidation(st.inputs))
         this.setState({ ...st })
     }
@@ -71,49 +62,35 @@ class ProductType extends Component {
         let st = { ...this.state }
         switch (type) {
             case buttonTypes.cancel:
-                this.setState({
-                    ...visibleButton(this.state.buttons, buttonTypes.submit),
-                    ...ResetInputs(this.state.inputs)
-                })
+                this.reset(st)
                 break;
             case buttonTypes.edit:
-                st.table.action.data = { ...st.formAction.data }
-                st.table.action.type = actions.edit;
-                st.buttons = { ...visibleButton(this.state.buttons, buttonTypes.submit) }
-                st.inputs = { ...ResetInputs(this.state.inputs) }
-                this.setState({ ...st }, () => {
-                    st.table.action.type = actions.submit;
-                    st.table.action.data = {};
-                    this.setState({ ...st })
-                })
+                product.edit({ Id: st.editId, Product: st.inputs.product.value })
+                this.reset(st)
                 break;
             case buttonTypes.submit:
                 product.save({ Product: st.inputs.product.value }).then(result => {
                     if (result.type == 'success') {
-                        st.table.action.data = {
-                            id: result.data.id,
-                            product: result.data.product
-                        }
-                        st.table.action.type = actions.submit;
-                        this.setState({ ...st }, () => {
-                            st.buttons = { ...visibleButton(this.state.buttons, buttonTypes.submit) }
-                            st.inputs = { ...ResetInputs(this.state.inputs) }
-                            st.table.action.data = {};
-                            this.setState({ ...st })
-                        })
+                        this.reset(st)
                     }
                 })
                 break;
         }
     }
 
+    reset = st => {
+        this.setState({ ...resetForm(st) }, () => {
+            st.table.action = actions.submit;
+            this.setState({ ...st })
+        })
+    }
+
     handleTableButtonsClick = (key, obj) => {
         let st = { ...this.state }
-        st.formAction.data = { ...obj };
-        st.formAction.type = actions.edit
         st.inputs.product.value = obj.product;
         st.inputs.product.text = obj.product;
         st.inputs.product.touched = true;
+        st.editId = obj.id;
         st.buttons = {
             ...visibleButton(st.buttons, [buttonTypes.cancel, buttonTypes.edit]),
             ...ButtonActivation(st.buttons, CheckInputsValidation(st.inputs))

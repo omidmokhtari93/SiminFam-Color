@@ -60,5 +60,30 @@ namespace SiminFam_Color.Controllers.Product
                 data = new { id = id, product = product.Product }
             });
         }
+
+        [HttpPost("/api/EditProduct")]
+        public IActionResult EditProductActionResult([FromBody] Products product)
+        {
+            if (product.Product == "")
+            {
+                return Json(new
+                {
+                    message = "مقدار ورودی خالی است",
+                    type = "error",
+                    data = new { }
+                });
+            }
+            con.Simin.Open();
+            var cmd = new SqlCommand("update Products set Product = N'" + product.Product + "' " +
+                                     "where Id = " + product.Id + " ", con.Simin);
+            cmd.ExecuteNonQuery();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ثبت شد",
+                type = "success",
+                data = new { id = product.Id, product = product.Product }
+            });
+        }
     }
 }

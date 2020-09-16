@@ -28,7 +28,7 @@ const Setting = props => {
                     <NavLink className="nav-link" activeClassName="active" to="/setting/color">رنگ</NavLink>
                 </li>
             </ul>
-            <div className="tab-content card-body text-right rtl border-left border-bottom border-right">
+            <div className="tab-content card-body text-right rtl border-left border-bottom border-right bg-white">
                 <Route exact path="/setting/type" render={() => <Product />} />
                 <Route exact path="/setting/company" render={() => <AddCompany />} />
                 <Route exact path="/setting/color" render={() => <AddColor />} />

@@ -1,4 +1,7 @@
 import * as inputTypes from './inputTypes';
+import { visibleButton } from '../UI/Buttons/ButtonActivation'
+import * as buttonTypes from '../UI/Buttons/ButtonTypes';
+import * as actions from '../Shared/Actions';
 
 export const ResetInputs = inputs => {
     let st = { ...inputs }
@@ -18,6 +21,9 @@ export const ResetInputs = inputs => {
 }
 
 
-export const resetForm = ({ state }) => {
+export const resetForm = (state) => {
+    state.buttons = { ...visibleButton(state.buttons, buttonTypes.submit) }
+    state.inputs = { ...ResetInputs(state.inputs) }
+    state.table.action = actions.update;
     return state;
 }

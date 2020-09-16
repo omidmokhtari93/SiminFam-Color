@@ -8,8 +8,12 @@ export const product = {
             .then(handleResponse)
             .catch(() => createNotif({ type: 'danger', message: 'خطایی بوجود آمد' }));
     },
-    edit: { url: 'EditProduct', method: 'get' },
-    delete: { url: 'DeleteProduct', method: 'post' },
+    edit: (values) => {
+        return http.post('EditProduct', values)
+            .then(handleResponse)
+            .catch(() => createNotif({ type: 'danger', message: 'خطایی بوجود آمد' }));
+    },
+    //delete: { url: 'DeleteProduct', method: 'post' },
 }
 
 const handleResponse = (response) => {
