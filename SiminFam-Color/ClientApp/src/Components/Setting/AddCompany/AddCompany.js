@@ -9,8 +9,8 @@ import Table from '../../../UI/Table/Table';
 import * as tbl from '../../../Shared/TableCreationData'
 import { visibleButton } from '../../../UI/Buttons/ButtonActivation';
 import * as actions from '../../../Shared/Actions';
-import { companyService } from './Company.service';
 import { resetForm } from '../../../Shared/ResetInputs';
+import { apiService } from '../../../Services/Services';
 
 class AddCompany extends Component {
     state = {
@@ -65,11 +65,11 @@ class AddCompany extends Component {
                 this.reset(st)
                 break;
             case buttonTypes.edit:
-                companyService.edit({ Id: st.editId, Company: st.inputs.company.value })
+                apiService.comapny.edit({ Id: st.editId, Company: st.inputs.company.value })
                 this.reset(st)
                 break;
             case buttonTypes.submit:
-                companyService.save({ Company: st.inputs.company.value }).then(result => {
+                apiService.comapny.add({ Company: st.inputs.company.value }).then(result => {
                     if (result.type == 'success') {
                         this.reset(st)
                     }
