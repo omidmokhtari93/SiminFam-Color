@@ -21,9 +21,8 @@ export const user = {
 
     checkLogin: () => {
         return http.get(action.CHECK_LOGIN, { params: AuthHeader() }).then(userData => {
-            console.log(userData)
-            return true
-        }).catch(x => false);
+            return userData
+        }).catch(x => undefined);
     },
     logout: () => handleLogOut()
 }
