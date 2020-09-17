@@ -9,7 +9,6 @@ import { date } from './Shared/inputTypes';
 function App(props) {
   useEffect(() => {
     user.checkLogin().then(data => {
-      console.log(data)
       if (data) {
         props.history.replace('/main/addnew')
       } else {
