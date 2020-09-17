@@ -4,7 +4,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
 import TopNavBar from '../../UI/Navbar/TopNavBar/TopNavbar'
 import Loading from '../../UI/Loading/Loading';
-import Login from '../Login/Login';
 
 const AddNew = lazy(() => import('../AddNewColor/AddNew'));
 const Setting = lazy(() => import('../Setting/Setting'))
@@ -14,7 +13,7 @@ const LoadingElement = <div className="text-center">
 </div>
 
 
-const MainPanel = props => {
+const ProtectedRoutes = props => {
     return (
         <React.Fragment>
             <TopNavBar />
@@ -33,4 +32,4 @@ const MainPanel = props => {
     )
 }
 
-export default withRouter(MainPanel);
+export default withRouter(ProtectedRoutes);
