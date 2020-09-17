@@ -1,9 +1,8 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import ErrorBoundary from '../../Shared/ErrorBoundary/ErrorBoundary'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
 import TopNavBar from '../../UI/Navbar/TopNavBar/TopNavbar'
-import ReactNotification from 'react-notifications-component'
 import Loading from '../../UI/Loading/Loading';
 
 const AddNew = lazy(() => import('../AddNewColor/AddNew'));
@@ -17,7 +16,6 @@ const LoadingElement = <div className="text-center">
 const MainPanel = props => {
     return (
         <React.Fragment>
-            <ReactNotification />
             <TopNavBar />
             <div className="container sans p-4 border mt-3">
                 <ErrorBoundary>
@@ -25,7 +23,7 @@ const MainPanel = props => {
                         <Switch>
                             <Route path="/addnew" render={() => <AddNew />} />
                             <Route path="/setting" render={() => <Setting />} />
-                            <Route render={() => <ErrorPage />} />
+                            {/* <Route render={() => <ErrorPage />} /> */}
                         </Switch>
                     </Suspense>
                 </ErrorBoundary>
@@ -34,4 +32,4 @@ const MainPanel = props => {
     )
 }
 
-export default MainPanel;
+export default withRouter(MainPanel);

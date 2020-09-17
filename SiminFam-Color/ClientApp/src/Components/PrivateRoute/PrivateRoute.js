@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { user } from '../../Services/User.service';
 import MainPanel from '../MainPanel/MainPanel'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-
-    const check = user.checkLogin()
-
+    let [loggedIn, handleCheckLogin] = useState(false)
+    user.checkLogin().then((userData) => {
+        if (userData) {
+            handleCheckLogin(true)
+        }
+    })
+    console.log()
     return (
-        <Route {...rest} render={props => (
-            false ? <MainPanel {...props} />
-                : <Redirect to={{ pathname: '/login' }} />
+        <Route {...rest} render={(props) => (
+            loggedIn ? <Component {...props} />
+                : <Redirect to='/login' />
         )} />
     )
 }
-
-// window.btoa('test' + ':' + 'test')
-
-// window.atob('dGVzdDp0ZXN0')

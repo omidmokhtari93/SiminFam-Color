@@ -1,8 +1,12 @@
 import React from 'react';
 import './NavBarItems.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { user } from '../../../Services/User.service';
 
 const NavBarItems = props => {
+    const logout = () => {
+        user.logout().then(() => props.history.replace('/'))
+    }
     return (
         <React.Fragment>
             <li className="nav-item dropdown">
@@ -22,8 +26,11 @@ const NavBarItems = props => {
             <li className="nav-item">
                 <NavLink className="nav-link" activeClassName="activeLink" exact to="/setting">تنظیمات</NavLink>
             </li>
+            <li className="nav-item">
+                <a className="nav-link" onClick={() => logout()}>خروج</a>
+            </li>
         </React.Fragment>
     )
 }
 
-export default NavBarItems;
+export default withRouter(NavBarItems);

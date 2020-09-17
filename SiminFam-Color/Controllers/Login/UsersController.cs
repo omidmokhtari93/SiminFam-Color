@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Authenticate")]
+        [HttpPost("/api/Authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]User userParam)
         {
             var user = await _userService.Authenticate(userParam.Username, userParam.Password);
@@ -28,7 +28,8 @@ namespace WebApi.Controllers
                 : new { type = "success", message = "با موفقیت وارد شدید", user = user });
         }
 
-        [HttpGet]
+
+        [HttpGet("/api/CheckLogin")]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetAll();

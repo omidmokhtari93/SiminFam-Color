@@ -38,7 +38,7 @@ class Navbar extends Component {
         return (
             <React.Fragment>
                 <SideNavar close={this.handleShowSideBar} show={this.state.showSideBar} />
-                <nav className="sans navbar navbar-expand-sm navbar-light p-2 border-bottom" id="top-navbar">
+                <nav className="sans navbar navbar-expand-sm navbar-light p-2 border-bottom pr-5" id="top-navbar">
                     <Logo />
                     <ul className="navbar-nav pr-4" id="navigationBar">
                         <NavBarItems />
