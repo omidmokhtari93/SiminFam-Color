@@ -1,34 +1,14 @@
-import React, { Suspense, lazy } from 'react';
-import Loading from './UI/Loading/Loading'
-import TopNavBar from './UI/Navbar/TopNavBar/TopNavbar'
-import ErrorBoundary from './Shared/ErrorBoundary/ErrorBoundary'
-import { Switch, Route, Router } from 'react-router-dom';
-import ErrorPage from './Shared/ErrorPage/ErrorPage';
-import ReactNotification from 'react-notifications-component'
-
-const AddNew = lazy(() => import('./Components/AddNewColor/AddNew'));
-const Setting = lazy(() => import('./Components/Setting/Setting'))
-
-const LoadingElement = <div className="text-center">
-  <Loading show={true} style={{ width: '30px' }} />
-</div>
+import React from 'react';
+import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
+import MainPanel from './Components/MainPanel/MainPanel'
+import { Route } from 'react-router';
+import Login from './Components/Login/Login'
 
 function App() {
   return (
     <React.Fragment>
-      <ReactNotification />
-      <TopNavBar />
-      <div className="container sans p-4 border mt-3">
-        <ErrorBoundary>
-          <Suspense fallback={LoadingElement}>
-            <Switch>
-              <Route path="/addnew" render={() => <AddNew />} />
-              <Route path="/setting" render={() => <Setting />} />
-              <Route render={() => <ErrorPage />} />
-            </Switch>
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+      <PrivateRoute exact path="/" component={<MainPanel />} />
+      <Route path="/login" render={() => <Login />} />
     </React.Fragment>
   );
 }

@@ -28,11 +28,11 @@ namespace WebApi.Controllers
                 : new { type = "success", message = "با موفقیت وارد شدید", user = user });
         }
 
-        [AllowAnonymous]
-        [HttpGet("test")]
-        public void Test()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            _userService.Test();
+            var users = await _userService.GetAll();
+            return Ok(users);
         }
 
     }
