@@ -19,19 +19,19 @@ const Setting = props => {
         <React.Fragment>
             <ul className="nav nav-tabs rtl" id="myTab" role="tablist">
                 <li className="nav-item">
-                    <NavLink className="nav-link" activeClassName="active" to="/setting/type">نوع محصول</NavLink>
+                    <NavLink className="nav-link" activeClassName="active" to="/main/setting/type">نوع محصول</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" activeClassName="active" to="/setting/company">نام شرکت</NavLink>
+                    <NavLink className="nav-link" activeClassName="active" to="/main/setting/company">نام شرکت</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" activeClassName="active" to="/setting/color">رنگ</NavLink>
+                    <NavLink className="nav-link" activeClassName="active" to="/main/setting/color">رنگ</NavLink>
                 </li>
             </ul>
             <div className="tab-content card-body text-right rtl border-left border-bottom border-right bg-white">
-                <Route exact path="/setting/type" render={() => <Product />} />
-                <Route exact path="/setting/company" render={() => <AddCompany />} />
-                <Route exact path="/setting/color" render={() => <AddColor />} />
+                <Route exact path="/main/setting/type" render={() => <Product />} />
+                <Route exact path="/main/setting/company" render={() => <AddCompany />} />
+                <Route exact path="/main/setting/color" render={() => <AddColor />} />
             </div>
         </React.Fragment>
     )

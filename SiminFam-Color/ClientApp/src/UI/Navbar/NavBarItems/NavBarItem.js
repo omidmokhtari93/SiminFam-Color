@@ -5,7 +5,7 @@ import { user } from '../../../Services/User.service';
 
 const NavBarItems = props => {
     const logout = () => {
-        user.logout().then(() => props.history.replace('/'))
+        user.logout().then(() => props.history.replace('/login'))
     }
     return (
         <React.Fragment>
@@ -16,18 +16,18 @@ const NavBarItems = props => {
                         </a>
                 <div className="dropdown-menu text-right" >
                     <NavLink className="dropdown-item" activeClassName="active" to={{
-                        pathname: "/addnew"
+                        pathname: "/main/addnew"
                     }}>رنگ جدید</NavLink>
                 </div>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" activeClassName="activeLink" exact to="/reports">گزارشات</NavLink>
+                <NavLink className="nav-link" activeClassName="activeLink" exact to="/main/reports">گزارشات</NavLink>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" activeClassName="activeLink" exact to="/setting">تنظیمات</NavLink>
+                <NavLink className="nav-link" activeClassName="activeLink" exact to="/main/setting">تنظیمات</NavLink>
             </li>
             <li className="nav-item">
-                <a className="nav-link" onClick={() => logout()}>خروج</a>
+                <a className="nav-link pointer" onClick={() => logout()}>خروج</a>
             </li>
         </React.Fragment>
     )

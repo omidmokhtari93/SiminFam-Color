@@ -1,9 +1,10 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import ErrorBoundary from '../../Shared/ErrorBoundary/ErrorBoundary'
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
 import TopNavBar from '../../UI/Navbar/TopNavBar/TopNavbar'
 import Loading from '../../UI/Loading/Loading';
+import Login from '../Login/Login';
 
 const AddNew = lazy(() => import('../AddNewColor/AddNew'));
 const Setting = lazy(() => import('../Setting/Setting'))
@@ -21,9 +22,9 @@ const MainPanel = props => {
                 <ErrorBoundary>
                     <Suspense fallback={LoadingElement}>
                         <Switch>
-                            <Route path="/addnew" render={() => <AddNew />} />
-                            <Route path="/setting" render={() => <Setting />} />
-                            {/* <Route render={() => <ErrorPage />} /> */}
+                            <Route path="/main/addnew" render={() => <AddNew />} />
+                            <Route path="/main/setting" render={() => <Setting />} />
+                            <Route render={() => <ErrorPage />} />
                         </Switch>
                     </Suspense>
                 </ErrorBoundary>

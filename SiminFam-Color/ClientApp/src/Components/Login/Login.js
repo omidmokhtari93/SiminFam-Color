@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.scss'
 import logo from '../../Assets/images/logo.png'
 import { user } from '../../Services/User.service';
-import { Redirect, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 
 const Login = props => {
     let [userData, handleChange] = useState({ Username: '', Password: '' })
@@ -10,7 +10,7 @@ const Login = props => {
         e.preventDefault();
         user.login(userData).then(loggedIn => {
             if (loggedIn) {
-                return <Redirect to='/' />
+                props.history.replace('/main/addnew')
             }
         })
     }
