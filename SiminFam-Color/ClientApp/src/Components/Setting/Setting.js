@@ -12,7 +12,7 @@ const Setting = props => {
         history.push(props.match.path + '/type')
 
         return () => {
-            console.log('Remove effects')
+            //console.log('Remove effects')
         }
     }, [])
     return (

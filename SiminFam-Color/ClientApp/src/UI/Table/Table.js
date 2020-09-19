@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './Table.scss'
-import http from 'axios';
+import http from '../../Helpers/axios';
 import Loading from '../Loading/Loading'
 import TablePagination from "./TablePagination/TablePagination";
 import TableSearch from "./TableSearch/TableSearch";

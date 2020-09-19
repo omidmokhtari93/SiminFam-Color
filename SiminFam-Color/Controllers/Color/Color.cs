@@ -12,9 +12,8 @@ using SiminFam_Color.Controllers.GetConnection;
 namespace SiminFam_Color.Controllers.Color
 {
     [Authorize]
-	[ApiController]
     [Route("api/[controller]")]
-    public class Color : ControllerBase
+    public class Color : Controller
     {
         public GetConnction con = new GetConnction();
         [HttpGet("/api/GetColors")]
@@ -33,7 +32,7 @@ namespace SiminFam_Color.Controllers.Color
                 });
             }
             con.Simin.Close();
-            return new JsonResult(new
+            return Json(new
             {
                 rows = colors,
                 pagesCount = 0
@@ -56,7 +55,7 @@ namespace SiminFam_Color.Controllers.Color
             var cmd = new SqlCommand("insert into Colors (Color) values (N'" + color.Color + "') SELECT SCOPE_IDENTITY() ", con.Simin);
             var id = cmd.ExecuteScalar();
             con.Simin.Close();
-            return new JsonResult(new
+            return Json(new
             {
                 message = "با موفقیت ثبت شد",
                 type = "success",
@@ -81,7 +80,7 @@ namespace SiminFam_Color.Controllers.Color
                                      "where Id = " + color.Id + " ", con.Simin);
             cmd.ExecuteNonQuery();
             con.Simin.Close();
-            return new JsonResult(new
+            return Json(new
             {
                 message = "با موفقیت ویرایش شد",
                 type = "success",

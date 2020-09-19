@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styles from './SearchBox.module.scss';
 import searcIcon from '../../Assets/images/search.png'
 import Loading from '../Loading/Loading';
-import http from 'axios';
+import http from '../../Helpers/axios';
 import propTypes from 'prop-types';
 
 class SearchBox extends Component {

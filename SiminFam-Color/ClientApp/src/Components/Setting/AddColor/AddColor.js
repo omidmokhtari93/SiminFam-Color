@@ -21,7 +21,7 @@ class AddCompany extends Component {
                 header: [...tbl.addColorHeader],
                 body: [...tbl.addColorBody],
             },
-            url: "/api/GetColors",
+            url: "GetColors",
             buttons: {
                 edit: 'ویرایش'
             },

@@ -22,7 +22,7 @@ class AddCompany extends Component {
                 header: [...tbl.addCompanyHeader],
                 body: [...tbl.addCompanyBody],
             },
-            url: "/api/GetCompanies",
+            url: "GetCompanies",
             buttons: {
                 edit: 'ویرایش'
             },
