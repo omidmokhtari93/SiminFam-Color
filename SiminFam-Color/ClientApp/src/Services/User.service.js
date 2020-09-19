@@ -23,7 +23,8 @@ export const user = {
         const user = localStorage.getItem('SiminUser')
         if (user) {
             let localUser = window.atob(user).split(':')
-            return http.post(action.CHECK_LOGIN, { Username: localUser[0], Password: localUser[1] })
+            return http.post(action.CHECK_LOGIN,
+                { Username: localUser[0], Password: localUser[1] }, { headers: AuthHeader() })
                 .then(userData => { return userData }).catch(x => false);
         }
         return null

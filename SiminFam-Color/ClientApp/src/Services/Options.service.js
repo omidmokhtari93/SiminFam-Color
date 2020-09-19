@@ -1,3 +1,4 @@
+import { AuthHeader } from '../Helpers/AuthHeader';
 import http from '../Helpers/axios';
 import * as actions from './ServiceActions';
 
@@ -13,7 +14,7 @@ export const options = {
 }
 
 const handleRequest = async (action) => {
-    let response = await http.get(action)
+    let response = await http.get(action, { headers: AuthHeader() })
     optionsArray = { ...{ Colors: await response.data.rows } }
     return optionsArray;
 }
