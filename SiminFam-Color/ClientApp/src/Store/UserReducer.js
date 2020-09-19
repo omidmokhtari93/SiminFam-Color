@@ -1,15 +1,14 @@
 import * as actions from './Actions';
 
 const initialState = {
-    data: {}
+    data: null
 }
 
 const UserReducer = (state = initialState, action) => {
-    console.log(action)
+    //console.log(action)
     switch (action.type) {
         case actions.STORE_USER_DATA:
-            state.data = { ...action.value }
-            return state
+            return { data: action.value }
         default:
             return state;
     }

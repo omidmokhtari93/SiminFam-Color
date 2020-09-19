@@ -13,22 +13,24 @@ export const user = {
                 }
                 createNotif(response.data)
             }
-            return response.data.type == "success"
+            return response.data ? response.data : false
         }).catch(response => {
             createNotif({ type: 'danger', message: 'خطایی بوجود آمد' })
         })
     },
 
-    checkLogin: () => {
-        return http.get(action.CHECK_LOGIN, { params: AuthHeader() }).then(userData => {
-            return userData
-        }).catch(x => undefined);
+    checkLogin: async () => {
+        const user = localStorage.getItem('SiminUser')
+        if (user) {
+            let localUser = window.atob(user).split(':')
+            return http.post(action.CHECK_LOGIN, { Username: localUser[0], Password: localUser[1] })
+                .then(userData => { return userData }).catch(x => false);
+        }
+        return null
     },
-    logout: () => handleLogOut()
-}
-
-const handleLogOut = async () => {
-    return await localStorage.removeItem('SiminUser')
+    logout: async () => {
+        return localStorage.removeItem('SiminUser')
+    }
 }
 
 const createNotif = (data) => {

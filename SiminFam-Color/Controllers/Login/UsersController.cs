@@ -24,16 +24,16 @@ namespace WebApi.Controllers
         {
             var user = await _userService.Authenticate(userParam.Username, userParam.Password);
             return Ok(user == null
-                ? new { type = "danger", message = "نام کاربری یا کلمه عبور اشتباه است", user = (User) null }
+                ? new { type = "danger", message = "نام کاربری یا کلمه عبور اشتباه است", user = (User)null }
                 : new { type = "success", message = "با موفقیت وارد شدید", user = user });
         }
 
-
-        [HttpGet("/api/CheckLogin")]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        [HttpPost("/api/CheckLogin")]
+        public async Task<IActionResult> GetAll([FromBody] User userParam)
         {
-            var users = await _userService.GetAll();
-            return Ok(users);
+            var user = await _userService.Authenticate(userParam.Username, userParam.Password);
+            return Ok(user);
         }
 
     }

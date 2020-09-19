@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SiminFam_Color.Controllers.GetConnection
 {
+    [Authorize]
     public class GetConnction
     {
         public SqlConnection Simin;

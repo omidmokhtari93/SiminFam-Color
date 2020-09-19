@@ -3,13 +3,16 @@ import './Login.scss'
 import logo from '../../Assets/images/logo.png'
 import { user } from '../../Services/User.service';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import * as action from '../../Store/ActionCreators';
 
 const Login = props => {
     let [userData, handleChange] = useState({ Username: '', Password: '' })
     const loginUser = e => {
         e.preventDefault();
-        user.login(userData).then(loggedIn => {
-            if (loggedIn) {
+        user.login(userData).then(data => {
+            if (data) {
+                props.storeUserData(data.user)
                 props.history.replace('/main/addnew')
             }
         })
@@ -34,4 +37,10 @@ const Login = props => {
     )
 }
 
-export default withRouter(Login);
+const mapDispatchToProps = dispatch => {
+    return {
+        storeUserData: (value) => dispatch(action.storeUserData(value))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(Login));

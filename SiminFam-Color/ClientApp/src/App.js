@@ -12,7 +12,7 @@ function App(props) {
     user.checkLogin().then(data => {
       if (data) {
         props.history.replace('/main/addnew')
-        props.storeUserData(data)
+        props.storeUserData(data.data)
       } else {
         user.logout()
         props.history.replace('/login')
@@ -40,7 +40,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    storeUserData: () => dispatch(action.storeUserData)
+    storeUserData: (value) => dispatch(action.storeUserData(value))
   }
 }
 

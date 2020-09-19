@@ -1,0 +1,14 @@
+
+@media (min-width: 706px) {
+    .user-info {
+        position: absolute;
+        left: 35px;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 705px) {
+    .user-info {
+        padding: 15px;
+    }
+}

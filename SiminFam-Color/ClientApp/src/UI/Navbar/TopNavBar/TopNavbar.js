@@ -4,6 +4,7 @@ import SideNavar from '../SideNavbar/SideNavbar'
 import ShowButton from '../ShowButton/ShowButton';
 import NavBarItems from '../NavBarItems/NavBarItem';
 import Logo from '../../../UI/Logo/Logo';
+import UserInfo from '../UserInfo/UserInfo';
 //import SearchBoxNoRedux from '../../../UI/SearchBox/SearchBox';
 
 class Navbar extends Component {
@@ -41,15 +42,14 @@ class Navbar extends Component {
                 <nav className="sans navbar navbar-expand-sm navbar-light p-2 border-bottom pr-5" id="top-navbar">
                     <Logo />
                     <ul className="navbar-nav pr-4" id="navigationBar">
+                        <UserInfo />
                         <NavBarItems />
                     </ul>
-                    {/* <SearchBoxNoRedux
-                        {...this.state.searhcBox}
-                    /> */}
                     <ShowButton show={this.handleShowSideBar} />
                 </nav>
             </React.Fragment>
         )
     }
 }
+
 export default Navbar;

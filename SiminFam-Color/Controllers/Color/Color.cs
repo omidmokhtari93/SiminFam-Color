@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SiminFam_Color.Controllers.GetConnection;
 
@@ -10,8 +11,10 @@ using SiminFam_Color.Controllers.GetConnection;
 
 namespace SiminFam_Color.Controllers.Color
 {
+    [Authorize]
+	[ApiController]
     [Route("api/[controller]")]
-    public class Color : Controller
+    public class Color : ControllerBase
     {
         public GetConnction con = new GetConnction();
         [HttpGet("/api/GetColors")]
@@ -30,7 +33,7 @@ namespace SiminFam_Color.Controllers.Color
                 });
             }
             con.Simin.Close();
-            return Json(new
+            return new JsonResult(new
             {
                 rows = colors,
                 pagesCount = 0
@@ -42,7 +45,7 @@ namespace SiminFam_Color.Controllers.Color
         {
             if (color.Color == "")
             {
-                return Json(new
+                return new JsonResult(new
                 {
                     message = "مقدار ورودی خالی است",
                     type = "error",
@@ -53,7 +56,7 @@ namespace SiminFam_Color.Controllers.Color
             var cmd = new SqlCommand("insert into Colors (Color) values (N'" + color.Color + "') SELECT SCOPE_IDENTITY() ", con.Simin);
             var id = cmd.ExecuteScalar();
             con.Simin.Close();
-            return Json(new
+            return new JsonResult(new
             {
                 message = "با موفقیت ثبت شد",
                 type = "success",
@@ -66,7 +69,7 @@ namespace SiminFam_Color.Controllers.Color
         {
             if (color.Color == "")
             {
-                return Json(new
+                return new JsonResult(new
                 {
                     message = "مقدار ورودی خالی است",
                     type = "error",
@@ -78,7 +81,7 @@ namespace SiminFam_Color.Controllers.Color
                                      "where Id = " + color.Id + " ", con.Simin);
             cmd.ExecuteNonQuery();
             con.Simin.Close();
-            return Json(new
+            return new JsonResult(new
             {
                 message = "با موفقیت ویرایش شد",
                 type = "success",

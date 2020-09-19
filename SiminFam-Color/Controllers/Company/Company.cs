@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SiminFam_Color.Controllers.GetConnection;
 
@@ -10,6 +11,7 @@ using SiminFam_Color.Controllers.GetConnection;
 
 namespace SiminFam_Color.Controllers.Company
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class Product : Controller
     {
