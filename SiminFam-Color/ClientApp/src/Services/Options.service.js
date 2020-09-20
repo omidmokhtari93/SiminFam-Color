@@ -6,15 +6,14 @@ let optionsArray = {}
 
 export const options = {
     get: {
-        color: () => handleRequest(actions.GET_COLORS)
+        color: () => {}
     },
     getPageOptions: {
-        addNew: () => { }
+        addNew: () => {
+            let data = [];
+            let response = await http.get(action, { headers: AuthHeader() })
+            optionsArray = { ...{ Colors: await response.data.rows } }
+            return optionsArray;
+        }
     }
-}
-
-const handleRequest = async (action) => {
-    let response = await http.get(action, { headers: AuthHeader() })
-    optionsArray = { ...{ Colors: await response.data.rows } }
-    return optionsArray;
 }
