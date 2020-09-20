@@ -18,7 +18,6 @@ const LoadingElement = <div className="text-center">
 
 const ProtectedRoutes = props => {
     useEffect(() => {
-        console.log('PRotected Routes')
         user.checkLogin().then(data => {
             if (data) {
                 props.history.replace('/main/addnew')

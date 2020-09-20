@@ -5,15 +5,22 @@ import { user } from '../../Services/User.service';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as action from '../../Store/ActionCreators';
+import { date } from '../../Shared/inputTypes';
+import Loading from '../../UI/Loading/Loading';
 
 const Login = props => {
     let [userData, handleChange] = useState({ Username: '', Password: '' })
+    let [show, showLoading] = useState(false);
     const loginUser = e => {
         e.preventDefault();
+        showLoading(true)
         user.login(userData).then(data => {
-            if (data) {
+            if (data.user) {
+                showLoading(false)
                 props.storeUserData(data.user)
                 props.history.replace('/main/addnew')
+            } else {
+                showLoading(false)
             }
         })
     }
@@ -29,8 +36,11 @@ const Login = props => {
                 <label htmlFor="inputPassword" className="sr-only">رمز عبور</label>
                 <input type="password" id="inputPassword" className="form-control" placeholder="رمز عبور"
                     onChange={e => handleChange({ ...userData, Password: e.target.value })} />
-                <button className="btn btn-lg btn-primary btn-block" type="submit"
+                <button className="btn btn-lg btn-primary btn-block position-relative" type="submit"
                     onClick={loginUser}>ورود</button>
+                <div className="position-relative mt-2">
+                    <Loading show={show} style={{ top: '10px', width: '25px' }} />
+                </div>
                 <p className="mt-5 mb-3 text-muted unit">تهیه شده توسط واحد نرم افزار</p>
             </form>
         </div>
