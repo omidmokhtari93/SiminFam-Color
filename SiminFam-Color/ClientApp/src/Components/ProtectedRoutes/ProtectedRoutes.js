@@ -5,6 +5,8 @@ import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
 import TopNavBar from '../../UI/Navbar/TopNavBar/TopNavbar'
 import Loading from '../../UI/Loading/Loading';
 import { user } from '../../Services/User.service';
+import * as action from '../../Store/ActionCreators'
+import { connect } from 'react-redux';
 
 const AddNew = lazy(() => import('../AddNewColor/AddNew'));
 const Setting = lazy(() => import('../Setting/Setting'))
@@ -20,7 +22,7 @@ const ProtectedRoutes = props => {
         user.checkLogin().then(data => {
             if (data) {
                 props.history.replace('/main/addnew')
-                //props.storeUserData(data.data)
+                props.storeUserData(data.data)
             } else {
                 user.logout()
                 props.history.replace('/login')
@@ -45,4 +47,10 @@ const ProtectedRoutes = props => {
     )
 }
 
-export default withRouter(ProtectedRoutes);
+const mapDispatchToProps = dispatch => {
+    return {
+        storeUserData: (value) => dispatch(action.storeUserData(value))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(ProtectedRoutes));
