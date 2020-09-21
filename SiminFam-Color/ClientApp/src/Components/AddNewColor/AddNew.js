@@ -11,13 +11,13 @@ import { options } from '../../Services/Options.service';
 class AddNew extends Component {
     state = {
         inputs: {
-            name: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی", options: [] },
+            type: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع ورودی", options: [] },
             tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد موقت" },
             finalCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد نهایی" },
-            color: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع رنگ" },
+            color: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نوع رنگ", options: [] },
             weight: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "مقدار وارد شده" },
             enterDate: { value: '', text: '', required: true, touched: false, type: inputType.date, label: "تاریخ ورود" },
-            company: { value: '', text: '', required: true, touched: false, type: inputType.select, label: "نام شرکت" },
+            company: { value: '', text: '', required: false, touched: false, type: inputType.select, label: "نام شرکت", options: [] },
             price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" }
         },
         table: {
@@ -55,11 +55,12 @@ class AddNew extends Component {
     }
 
     componentDidMount() {
-        let op = { ...this.state.inputs.name.options }
-        options.get.color().then(response => {
-            console.log(response)
-            op = [...response.Colors]
-            this.setState({ ...op })
+        let inputs = { ...this.state.inputs }
+        options.getPageOptions.addNew().then(response => {
+            inputs.color.options = response.colors
+            inputs.type.options = response.types
+            inputs.company.options = response.companies
+            this.setState({ ...inputs })
         })
     }
 

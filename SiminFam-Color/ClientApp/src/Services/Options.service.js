@@ -1,19 +1,21 @@
 import { AuthHeader } from '../Helpers/AuthHeader';
 import http from '../Helpers/axios';
-import * as actions from './ServiceActions';
-
-let optionsArray = {}
+import * as action from './ServiceActions'
 
 export const options = {
     get: {
-        color: () => {}
+        color: () => { }
     },
     getPageOptions: {
-        addNew: () => {
-            let data = [];
-            let response = await http.get(action, { headers: AuthHeader() })
-            optionsArray = { ...{ Colors: await response.data.rows } }
-            return optionsArray;
+        addNew: async () => {
+            let data = { colors: [], companies: [], types: [] };
+            let colorReposnse = await http.get(action.GET_COLORS, { headers: AuthHeader() })
+            let typesResponse = await http.get(action.GET_PRODUCTS, { headers: AuthHeader() })
+            let companyResponse = await http.get(action.GET_COMPANIES, { headers: AuthHeader() })
+            colorReposnse.data.rows.map(x => data.colors.push({ value: x.id, text: x.color }))
+            typesResponse.data.rows.map(x => data.types.push({ value: x.id, text: x.product }))
+            companyResponse.data.rows.map(x => data.companies.push({ value: x.id, text: x.company }))
+            return data;
         }
     }
 }
