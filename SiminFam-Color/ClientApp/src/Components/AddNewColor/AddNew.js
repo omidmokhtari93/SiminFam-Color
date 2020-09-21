@@ -64,10 +64,6 @@ class AddNew extends Component {
         })
     }
 
-    getControls = () => {
-
-    }
-
     handleChange = (name, value, text) => {
         //console.log(name, value, text)
         let inputs = { ...this.state.inputs };
@@ -100,7 +96,7 @@ class AddNew extends Component {
                     elements={this.state.buttons}
                     handleChange={(type) => this.handleButtonClick(type)}
                 />
-                {/* <Table {...this.state.table} /> */}
+                <Table {...this.state.table} />
             </React.Fragment>
         )
     }
