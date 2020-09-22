@@ -1,4 +1,3 @@
-import { AuthHeader } from '../Helpers/AuthHeader';
 import http from '../Helpers/axios';
 import * as action from './ServiceActions'
 
@@ -9,9 +8,9 @@ export const options = {
     getPageOptions: {
         addNew: async () => {
             let data = { colors: [], companies: [], types: [] };
-            let colorReposnse = await http.get(action.GET_COLORS, { headers: AuthHeader() })
-            let typesResponse = await http.get(action.GET_PRODUCTS, { headers: AuthHeader() })
-            let companyResponse = await http.get(action.GET_COMPANIES, { headers: AuthHeader() })
+            let colorReposnse = await http.get(action.GET_COLORS)
+            let typesResponse = await http.get(action.GET_PRODUCTS)
+            let companyResponse = await http.get(action.GET_COMPANIES)
             colorReposnse.data.rows.map(x => data.colors.push({ value: x.id, text: x.color }))
             typesResponse.data.rows.map(x => data.types.push({ value: x.id, text: x.product }))
             companyResponse.data.rows.map(x => data.companies.push({ value: x.id, text: x.company }))

@@ -2,11 +2,10 @@ import http from '../Helpers/axios';
 import * as action from './ServiceActions';
 import { store } from 'react-notifications-component';
 import { config } from '../UI/Notification/Notification.config';
-import { AuthHeader } from '../Helpers/AuthHeader';
 
 export const user = {
     login: (value) => {
-        return http.post(action.LOGIN, value, { params: AuthHeader() }).then((response) => {
+        return http.post(action.LOGIN, value).then((response) => {
             if (response.data) {
                 if (response.data.type == "success") {
                     localStorage.setItem("SiminUser", window.btoa(value.Username + ':' + value.Password))
@@ -16,6 +15,7 @@ export const user = {
             return response.data ? response.data : false
         }).catch(response => {
             createNotif({ type: 'danger', message: 'خطایی بوجود آمد' })
+            return false
         })
     },
 
@@ -24,7 +24,7 @@ export const user = {
         if (user) {
             let localUser = window.atob(user).split(':')
             return http.post(action.CHECK_LOGIN,
-                { Username: localUser[0], Password: localUser[1] }, { headers: AuthHeader() })
+                { Username: localUser[0], Password: localUser[1] })
                 .then(userData => { return userData }).catch(x => false);
         }
         return null

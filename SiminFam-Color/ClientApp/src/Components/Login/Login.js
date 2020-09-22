@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.scss'
 import logo from '../../Assets/images/logo.png'
 import { user } from '../../Services/User.service';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as action from '../../Store/ActionCreators';
-import { date } from '../../Shared/inputTypes';
 import Loading from '../../UI/Loading/Loading';
 
 const Login = props => {

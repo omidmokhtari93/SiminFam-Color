@@ -2,7 +2,6 @@ import http from '../Helpers/axios';
 import { store } from 'react-notifications-component';
 import { config } from '../UI/Notification/Notification.config';
 import * as  actions from './ServiceActions';
-import { AuthHeader } from '../Helpers/AuthHeader';
 
 export const apiService = {
     comapny: {
@@ -20,7 +19,7 @@ export const apiService = {
 }
 
 function handleRequest(action, value) {
-    return http.post(action, value, { headers: AuthHeader() })
+    return http.post(action, value)
         .then(handleResponse)
         .catch(() => createNotif({ type: 'danger', message: 'خطایی بوجود آمد' }));
 }

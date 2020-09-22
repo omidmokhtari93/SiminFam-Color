@@ -5,7 +5,6 @@ import Loading from '../Loading/Loading'
 import TablePagination from "./TablePagination/TablePagination";
 import TableSearch from "./TableSearch/TableSearch";
 import * as actions from '../../Shared/Actions';
-import { AuthHeader } from "../../Helpers/AuthHeader";
 
 class Table extends Component {
     state = {
@@ -51,8 +50,7 @@ class Table extends Component {
                     key: key,
                     rowsInpage: allowPagination ? this.props.rowsInPage : 0,
                     pageNumber: currentPage
-                },
-                headers: AuthHeader()
+                }
             }).then(x => {
                 this.setState({ body: x.data.rows, allPages: x.data.pagesCount, loading: false })
             })
