@@ -20,13 +20,10 @@ export const apiService = {
 
 function handleRequest(action, value) {
     return http.post(action, value)
-        .then(handleResponse)
-        .catch(() => createNotif({ type: 'danger', message: 'خطایی بوجود آمد' }));
-}
-
-const handleResponse = (response) => {
-    createNotif(response.data);
-    return response.data;
+        .then(response => {
+            createNotif(response.data);
+            return response.data;
+        });
 }
 
 const createNotif = ({ type, message }) => {

@@ -13,9 +13,6 @@ export const user = {
                 createNotif(response.data)
             }
             return response.data ? response.data : false
-        }).catch(response => {
-            createNotif({ type: 'danger', message: 'خطایی بوجود آمد' })
-            return false
         })
     },
 
@@ -25,7 +22,7 @@ export const user = {
             let localUser = window.atob(user).split(':')
             return http.post(action.CHECK_LOGIN,
                 { Username: localUser[0], Password: localUser[1] })
-                .then(userData => { return userData }).catch(x => false);
+                .then(userData => { return userData });
         }
         return null
     },

@@ -25,7 +25,7 @@ class AddNew extends Component {
                 header: [...tbl.addNewColorEntryHeader],
                 body: [...tbl.addNewColorEntryBody],
             },
-            url: "/api/GetColorsEntry",
+            url: "GetColorsEntry",
             buttons: {
                 edit: 'ویرایش'
             },
