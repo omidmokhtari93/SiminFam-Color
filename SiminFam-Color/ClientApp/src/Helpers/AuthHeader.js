@@ -6,5 +6,8 @@ export const token = {
         } else {
             return null
         }
+    },
+    set: (value) => {
+        localStorage.setItem("SiminUser", window.btoa(value.Username + ':' + value.Password))
     }
 }
