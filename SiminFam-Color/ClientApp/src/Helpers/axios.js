@@ -8,6 +8,9 @@ let instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+    if (config.url != "Authenticate" && !token.get()) {
+        return false;
+    }
     config.headers.Authorization = token.get();
     return config;
 })

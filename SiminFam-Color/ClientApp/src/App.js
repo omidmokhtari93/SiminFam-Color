@@ -9,9 +9,9 @@ function App(props) {
     <React.Fragment>
       <ReactNotification />
       <Switch>
-        <Route path="/main" render={() => <ProtectedRoutes />} />
-        <Route path="/login" render={() => <Login />} />
-        <Route path="/" exact render={() => <Login />} />
+        <Route path="/main" component={ProtectedRoutes} />
+        <Route path="/login" component={Login} />
+        <Route path="/" exact component={Login} />
       </Switch>
     </React.Fragment>
   );
