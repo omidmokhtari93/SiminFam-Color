@@ -16,16 +16,16 @@ namespace SiminFam_Color.Controllers.Product
     public class Product : Controller
     {
         public GetConnction con = new GetConnction();
-        [HttpGet("/api/GetProducts")]
+        [HttpGet("/api/GetTypes")]
         public IActionResult GetProductsActionResult()
         {
             con.Simin.Open();
-            var products = new List<Products>();
+            var products = new List<Types>();
             var cmd = new SqlCommand("select * from Products", con.Simin);
             var rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                products.Add(new Products()
+                products.Add(new Types()
                 {
                     Id = Convert.ToInt32(rd["Id"]),
                     Product = rd["Product"].ToString()
@@ -39,8 +39,8 @@ namespace SiminFam_Color.Controllers.Product
             });
         }
 
-        [HttpPost("/api/SaveProduct")]
-        public IActionResult SaveProductActionResult([FromBody] Products product)
+        [HttpPost("/api/SaveTypes")]
+        public IActionResult SaveProductActionResult([FromBody] Types product)
         {
             if (product.Product == "")
             {
@@ -63,8 +63,8 @@ namespace SiminFam_Color.Controllers.Product
             });
         }
 
-        [HttpPost("/api/EditProduct")]
-        public IActionResult EditProductActionResult([FromBody] Products product)
+        [HttpPost("/api/EditTypes")]
+        public IActionResult EditProductActionResult([FromBody] Types product)
         {
             if (product.Product == "")
             {

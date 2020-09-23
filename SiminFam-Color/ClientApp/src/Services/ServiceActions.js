@@ -1,6 +1,6 @@
-export const ADD_PRODUCT = "SaveProduct"
-export const EDIT_PRODUCT = "EditProduct"
-export const GET_PRODUCTS = "GetProducts"
+export const ADD_TYPE = "SaveTypes"
+export const EDIT_TYPE = "EditTypes"
+export const GET_TYPE = "GetTypes"
 
 
 export const ADD_COMPANY = "SaveCompany"

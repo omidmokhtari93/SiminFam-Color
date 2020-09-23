@@ -1,6 +1,6 @@
 ﻿namespace SiminFam_Color.Controllers.AddNew
 {
-    public class AddNewClass
+    public class Products
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

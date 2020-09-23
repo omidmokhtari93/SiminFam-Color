@@ -9,8 +9,8 @@ export const apiService = {
         edit: (value) => handleRequest(actions.EDIT_COMPANY, value)
     },
     product: {
-        add: (value) => handleRequest(actions.ADD_PRODUCT, value),
-        edit: (value) => handleRequest(actions.EDIT_PRODUCT, value),
+        add: (value) => handleRequest(actions.ADD_TYPE, value),
+        edit: (value) => handleRequest(actions.EDIT_TYPE, value),
     },
     color: {
         add: (value) => handleRequest(actions.ADD_COLOR, value),

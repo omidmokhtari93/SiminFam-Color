@@ -22,7 +22,7 @@ class ProductType extends Component {
                 header: [...tbl.productHeader],
                 body: [...tbl.productBody],
             },
-            url: "GetProducts",
+            url: "GetTypes",
             buttons: {
                 edit: 'ویرایش'
             },

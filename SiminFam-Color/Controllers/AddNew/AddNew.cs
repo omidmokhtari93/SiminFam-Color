@@ -19,7 +19,7 @@ namespace SiminFam_Color.Controllers.AddNew
         public Calculate calculate = new Calculate();
         public GetConnction con = new GetConnction();
 
-        [HttpGet("/api/GetColorsEntry")]
+        [HttpGet("/api/GetProducts")]
         public IActionResult GetColorsEntryActionResult(int rowsInPage, string key = "", int pageNumber = 1)
         {
             con.Simin.Open();
@@ -39,10 +39,10 @@ namespace SiminFam_Color.Controllers.AddNew
                                           " or (hasRN.FinalCode like N'%" + key + "%' or '" + key + "' = '') ")) + "" +
                                      " order by hasRN.Id desc", con.Simin);
             var rd = cmd.ExecuteReader();
-            var colorsEntryList = new List<AddNewClass>();
+            var colorsEntryList = new List<Products>();
             while (rd.Read())
             {
-                colorsEntryList.Add(new AddNewClass()
+                colorsEntryList.Add(new Products()
                 {
                     Id = Convert.ToInt32(rd["Id"]),
                     Product = rd["Product"].ToString(),
@@ -67,7 +67,26 @@ namespace SiminFam_Color.Controllers.AddNew
         }
 
         [HttpPost("/api/AddNewProduct")]
-        public IActionResult Get([FromBody] AddNewClass add)
+        public IActionResult AddNewProductActionResult([FromBody] Products add)
+        {
+            con.Simin.Open();
+            var cmd = new SqlCommand("insert into AddNewColor (Type , TempCode , FinalCode , Color , Amount ," +
+                                     "EnterDate , Company ,Price , Comment) values(" + add.ProductId + " " +
+                                     ", '" + add.TempCode + "' , '" + add.FinalCode + "'," +
+                                     "" + add.ColorId + ", " + add.Amount + " , '" + add.EnterDate + "' " +
+                                     ", " + add.CompanyId + " , " + add.Price + " , N'" + add.Comment + "')", con.Simin);
+            cmd.ExecuteNonQuery();
+            con.Simin.Close();
+            return Json(new
+            {
+                message = "با موفقیت ثبت شد",
+                type = "success",
+                data = new { }
+            });
+        }
+
+        [HttpPost("/api/EditProduct")]
+        public IActionResult EditProductEntryActionResult([FromBody] Products add)
         {
             con.Simin.Open();
             var cmd = new SqlCommand("insert into AddNewColor (Type , TempCode , FinalCode , Color , Amount ," +

@@ -7,9 +7,12 @@ import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 import Table from '../../UI/Table/Table';
 import * as tbl from '../../Shared/TableCreationData';
 import { options } from '../../Services/Options.service';
-import { addNew } from './EditAndEnter.service';
+import { product } from './EditAndEnter.service';
 import { ButtonActivation } from '../../UI/Buttons/ButtonActivation'
 import { CheckInputsValidation } from '../../UI/Inputs/CheckInputsValidation'
+import { resetForm } from '../../Shared/ResetInputs';
+import * as action from '../../Shared/Actions';
+
 class AddNew extends Component {
     state = {
         inputs: {
@@ -28,13 +31,14 @@ class AddNew extends Component {
             rowsInPage: "10",
             allowSearch: true,
             creationData: {
-                header: [...tbl.addNewColorEntryHeader],
-                body: [...tbl.addNewColorEntryBody],
+                header: tbl.addNewColorEntryHeader,
+                body: tbl.addNewColorEntryBody,
             },
-            url: "GetColorsEntry",
+            url: "GetProducts",
             buttons: {
                 edit: 'ویرایش'
             },
+            action: action.submit,
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
         buttons: {
@@ -75,10 +79,16 @@ class AddNew extends Component {
         this.setState({ ...updatedState })
     }
 
-    handleButtonClick = type => {
-        switch (type) {
+    handleButtonClick = buttonType => {
+        let st = { ...this.state }
+        switch (buttonType) {
             case buttonTypes.submit:
-                addNew.save(this.state.inputs)
+                product.save(st.inputs).then(() => {
+                    this.setState({ ...resetForm(st) }, () => {
+                        st.table.action = action.submit;
+                        this.setState({ ...st })
+                    })
+                })
         }
     }
 

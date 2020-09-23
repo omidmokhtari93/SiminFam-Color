@@ -3,7 +3,7 @@ import http from '../../Helpers/axios';
 import { store } from 'react-notifications-component';
 import { config } from '../../UI/Notification/Notification.config';
 
-export const addNew = {
+export const product = {
     save: (data) => {
         let serverData = {
             ProductId: data.type.value,
