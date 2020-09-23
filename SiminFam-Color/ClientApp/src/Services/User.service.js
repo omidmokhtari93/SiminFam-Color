@@ -18,8 +18,8 @@ export const user = {
     },
 
     checkLogin: async () => {
-        if (token.get()) {
-            let localUser = window.atob(user).split(':')
+        if (token.getUser()) {
+            let localUser = window.atob(token.getUser()).split(':')
             return http.post(action.CHECK_LOGIN,
                 { Username: localUser[0], Password: localUser[1] })
                 .then(userData => { return userData });

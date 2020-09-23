@@ -11,6 +11,7 @@ export const token = {
         localStorage.setItem("SiminUser", window.btoa(value.Username + ':' + value.Password))
     },
     remove: () => {
-        
-    }
+        localStorage.removeItem('SiminUser');
+    },
+    getUser : ()=> localStorage.getItem('SiminUser')
 }
