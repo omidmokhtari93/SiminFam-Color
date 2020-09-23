@@ -16,3 +16,5 @@ export const LOGIN = "Authenticate"
 export const REGISTER = "Register"
 
 export const CHECK_LOGIN = "CheckLogin"
+
+export const ADD_NEW_PRODUCT = "AddNewProduct"

@@ -18,8 +18,7 @@ export const user = {
     },
 
     checkLogin: async () => {
-        const user = localStorage.getItem('SiminUser')
-        if (user) {
+        if (token.get()) {
             let localUser = window.atob(user).split(':')
             return http.post(action.CHECK_LOGIN,
                 { Username: localUser[0], Password: localUser[1] })
@@ -27,9 +26,7 @@ export const user = {
         }
         return null
     },
-    logout: async () => {
-        return localStorage.removeItem('SiminUser')
-    }
+    logout: async () => token.remove()
 }
 
 const createNotif = (data) => {

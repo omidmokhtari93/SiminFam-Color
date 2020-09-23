@@ -85,7 +85,8 @@ class Input extends Component {
             case inputTypes.date:
                 return <DatePicker
                     value={this.props.value}
-                    onChange={(date) => this.props.handleChange(this.props.name, date, (date.year + '/' + date.month + '/' + date.day))}
+                    onChange={(date) => this.props.handleChange(this.props.name, date,
+                        (date.year + '/' + (date.month < 10 ? '0' + date.month : date.month) + '/' + (date.day < 10 ? '0' + date.day : date.day)))}
                     shouldHighlightWeekends
                     locale="fa"
                     slideAnimationDuration="0.1s"

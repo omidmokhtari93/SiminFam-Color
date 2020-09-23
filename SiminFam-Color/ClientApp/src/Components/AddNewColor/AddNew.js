@@ -7,7 +7,9 @@ import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 import Table from '../../UI/Table/Table';
 import * as tbl from '../../Shared/TableCreationData';
 import { options } from '../../Services/Options.service';
-
+import { addNew } from './EditAndEnter.service';
+import { ButtonActivation } from '../../UI/Buttons/ButtonActivation'
+import { CheckInputsValidation } from '../../UI/Inputs/CheckInputsValidation'
 class AddNew extends Component {
     state = {
         inputs: {
@@ -18,9 +20,13 @@ class AddNew extends Component {
             weight: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "مقدار وارد شده" },
             enterDate: { value: '', text: '', required: true, touched: false, type: inputType.date, label: "تاریخ ورود" },
             company: { value: '', text: '', required: false, touched: false, type: inputType.select, label: "نام شرکت", options: [] },
-            price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" }
+            price: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "قیمت" },
+            comment: { value: '', text: '', required: false, touched: false, type: inputType.textarea, label: "توضیحات" }
         },
         table: {
+            allowPagination: true,
+            rowsInPage: "10",
+            allowSearch: true,
             creationData: {
                 header: [...tbl.addNewColorEntryHeader],
                 body: [...tbl.addNewColorEntryBody],
@@ -28,10 +34,6 @@ class AddNew extends Component {
             url: "GetColorsEntry",
             buttons: {
                 edit: 'ویرایش'
-            },
-            action: {
-                type: '',
-                data: null
             },
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)
         },
@@ -65,22 +67,23 @@ class AddNew extends Component {
     }
 
     handleChange = (name, value, text) => {
-        //console.log(name, value, text)
-        let inputs = { ...this.state.inputs };
-        inputs[name].value = value;
-        inputs[name].text = text;
-        inputs[name].touched = true;
-        this.setState({ ...inputs }, () => {
-            console.log(this.state.inputs)
-        })
+        let updatedState = { ...this.state };
+        updatedState.inputs[name].value = value;
+        updatedState.inputs[name].text = text;
+        updatedState.inputs[name].touched = true;
+        ButtonActivation(updatedState.buttons, CheckInputsValidation(updatedState.inputs))
+        this.setState({ ...updatedState })
     }
 
     handleButtonClick = type => {
-
+        switch (type) {
+            case buttonTypes.submit:
+                addNew.save(this.state.inputs)
+        }
     }
 
-    removeSearch = (name, value, text) => {
-        console.log(name, value, text);
+    handleTableButtonsClick = (key, obj) => {
+        console.log(key, obj)
     }
 
     render() {

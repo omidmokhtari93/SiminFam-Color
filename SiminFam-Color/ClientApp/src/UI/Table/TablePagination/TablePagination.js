@@ -1,5 +1,5 @@
 import React from 'react';
-import './TablePagination.module.css';
+import './TablePagination.scss';
 
 const TablePagination = props => {
     const pages = props.pages;

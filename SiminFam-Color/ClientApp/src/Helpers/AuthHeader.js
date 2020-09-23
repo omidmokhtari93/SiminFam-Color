@@ -9,5 +9,8 @@ export const token = {
     },
     set: (value) => {
         localStorage.setItem("SiminUser", window.btoa(value.Username + ':' + value.Password))
+    },
+    remove: () => {
+        
     }
 }
