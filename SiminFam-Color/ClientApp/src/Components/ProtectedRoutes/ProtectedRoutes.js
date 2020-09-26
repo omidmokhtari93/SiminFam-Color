@@ -7,7 +7,8 @@ import { user } from '../../Services/User.service';
 import * as action from '../../Store/ActionCreators'
 import { connect } from 'react-redux';
 
-const AddNew = lazy(() => import('../AddNewColor/AddNew'));
+const AddNew = lazy(() => import('../AddNew/AddNew'));
+const AddNewColor = lazy(() => import('../AddNewColor/AddNewColor'));
 const Setting = lazy(() => import('../Setting/Setting'))
 const ErrorPage = lazy(() => import('../../Shared/ErrorPage/ErrorPage'))
 
@@ -36,6 +37,7 @@ const ProtectedRoutes = props => {
                     <Suspense fallback={LoadingElement}>
                         <Switch>
                             <Route path="/main/addnew" component={AddNew} />
+                            <Route path="/main/addnewcolor" component={AddNewColor} />
                             <Route path="/main/setting" component={Setting} />
                             <Route component={ErrorPage} />
                         </Switch>

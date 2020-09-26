@@ -10,13 +10,16 @@ const NavBarItems = props => {
     return (
         <React.Fragment>
             <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle pointer"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a className="nav-link dropdown-toggle pointer" >
                     ثبت
-                        </a>
+                </a>
                 <div className="dropdown-menu text-right" >
                     <NavLink className="dropdown-item" activeClassName="active" to={{
                         pathname: "/main/addnew"
+                    }}>ورودی جدید</NavLink>
+
+                    <NavLink className="dropdown-item" activeClassName="active" to={{
+                        pathname: "/main/addnewcolor"
                     }}>رنگ جدید</NavLink>
                 </div>
             </li>
