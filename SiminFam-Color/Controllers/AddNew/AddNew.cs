@@ -24,10 +24,10 @@ namespace SiminFam_Color.Controllers.AddNew
         {
             con.Simin.Open();
             var rowsAndPages = calculate.RowsAndPages("AddNewColor", rowsInPage);
-            var cmd = new SqlCommand("select * from(select ROW_NUMBER() over(order by main.Id) as rn , * from " +
+            var cmd = new SqlCommand("select * from(select ROW_NUMBER() over(order by main.Id desc) as rn , * from " +
                                      "(SELECT AddNewColor.Id, AddNewColor.[Type] as ProductId," +
                                      " AddNewColor.Color as ColorId ,AddNewColor.Company as CompanyId, Products.Product, " +
-                                     "TempCode, FinalCode, Colors.Color, " +
+                                     "TempCode, FinalCode, Colors.Color, AddNewColor.Comment ," +
                                      "Amount, EnterDate, Companies.Company, Price FROM AddNewColor " +
                                      "inner join Colors on AddNewColor.Color = Colors.id " +
                                      "inner join Companies on AddNewColor.Company = Companies.id " +
@@ -37,7 +37,7 @@ namespace SiminFam_Color.Controllers.AddNew
                                           " and hasRN.rn <= (" + pageNumber + " * " + rowsAndPages.Rows + ")") :
                                          (" where (hasRN.TempCode like N'%" + key + "%' or '" + key + "' = '') " +
                                           " or (hasRN.FinalCode like N'%" + key + "%' or '" + key + "' = '') ")) + "" +
-                                     " order by hasRN.Id desc", con.Simin);
+                                     " ", con.Simin);
             var rd = cmd.ExecuteReader();
             var colorsEntryList = new List<Products>();
             while (rd.Read())
@@ -54,6 +54,7 @@ namespace SiminFam_Color.Controllers.AddNew
                     Amount = Convert.ToInt32(rd["Amount"]),
                     EnterDate = rd["EnterDate"].ToString(),
                     Company = rd["Company"].ToString(),
+                    Comment = rd["Comment"].ToString(),
                     CompanyId = Convert.ToInt32(rd["CompanyId"]),
                     Price = Convert.ToDecimal(rd["Price"]),
                 });
@@ -98,7 +99,7 @@ namespace SiminFam_Color.Controllers.AddNew
             con.Simin.Close();
             return Json(new
             {
-                message = "با موفقیت ثبت شد",
+                message = "با موفقیت ویرایش شد",
                 type = "success",
                 data = new { }
             });

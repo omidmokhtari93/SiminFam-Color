@@ -62,7 +62,7 @@ class AddNew extends Component {
 
     componentDidMount() {
         let inputs = { ...this.state.inputs }
-        options.getPageOptions.addNew().then(response => {
+        options.getPageOptions.addNewPage().then(response => {
             inputs.color.options = response.colors
             inputs.type.options = response.types
             inputs.company.options = response.companies

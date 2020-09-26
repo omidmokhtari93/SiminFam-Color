@@ -6,7 +6,7 @@ export const options = {
         color: () => { }
     },
     getPageOptions: {
-        addNew: async () => {
+        addNewPage: async () => {
             let data = { colors: [], companies: [], types: [] };
             let colorReposnse = await http.get(action.GET_COLORS)
             let typesResponse = await http.get(action.GET_TYPE)
