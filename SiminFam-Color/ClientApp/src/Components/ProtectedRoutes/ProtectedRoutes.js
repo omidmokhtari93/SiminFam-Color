@@ -21,7 +21,7 @@ const ProtectedRoutes = props => {
     useEffect(() => {
         user.checkLogin().then(data => {
             if (data) {
-                props.history.replace('/main/addnew')
+                props.history.replace('/main/addnewcolor')
                 props.storeUserData(data.data)
             } else {
                 user.logout()

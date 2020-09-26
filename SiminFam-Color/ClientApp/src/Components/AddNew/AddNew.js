@@ -100,7 +100,7 @@ class AddNew extends Component {
     render() {
         return (
             <React.Fragment>
-                <ComponentsHeader>ثبت رنگ جدید</ComponentsHeader>
+                <ComponentsHeader>ثبت ورودی جدید</ComponentsHeader>
                 <FormBuilder
                     inputs={this.state.inputs}
                     handleChange={this.handleChange}

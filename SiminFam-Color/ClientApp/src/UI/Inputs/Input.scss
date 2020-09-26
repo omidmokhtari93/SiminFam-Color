@@ -21,14 +21,22 @@
     height: 38px !important;
     display: block !important;
 }
+
 .DatePicker__input {
     height: 38px !important;
     font-size: 1rem !important;
 }
+
 .input-group-prepend button:hover {
     background-color: wheat;
 }
 
 .input-group-prepend button {
     outline: none;
+}
+
+.custom-checkbox .custom-control-label::after,
+.custom-checkbox .custom-control-label::before {
+    margin-left: 10px;
+    margin-top: 6px;
 }

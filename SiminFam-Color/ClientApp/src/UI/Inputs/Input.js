@@ -99,6 +99,16 @@ class Input extends Component {
                     {...this.props}
                     handleResponse={(e) => this.props.handleChange(this.props.name, e.id, e.text)}
                 />
+            ////////////////////////////////////////////////////////////CHECKBOX/////////////////////////////////////////////////////////
+            case inputTypes.checkbox:
+                return <div className="form-control custom-control custom-checkbox d-flex pt-0">
+                    <input type="checkbox" className="custom-control-input h-100"
+                        id={this.props.name}
+                        name={this.props.name}
+                        checked={this.props.value}
+                        onChange={e => this.props.handleChange(this.props.name, e.target.checked, e.target.checked ? 'True' : 'False')} />
+                    <label className="custom-control-label" htmlFor={this.props.name}></label>
+                </div>
             ////////////////////////////////////////////////////////////CONTROL_SELECT//////////////////////////////////////////////////
             case inputTypes.control_select:
                 let att = { ...attr }
