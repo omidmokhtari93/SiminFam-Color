@@ -11,6 +11,7 @@ import { CheckInputsValidation } from '../../UI/Inputs/CheckInputsValidation'
 import Input from '../../UI/Inputs/Input';
 import Button from '../../UI/Buttons/Button';
 import Modal from '../../UI/Modal/Modal';
+import AddColorsModal from './AddColors/AddColors';
 
 class AddNewColor extends Component {
     state = {
@@ -19,10 +20,8 @@ class AddNewColor extends Component {
             tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد موقت" },
             finalCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد نهایی" },
             accept: { value: '', text: '', required: false, touched: false, type: inputType.checkbox, label: "تایید" },
-        },
-        addColorInputs: {
-            tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد رنگ" },
-            finalCode: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "درصد رنگ" },
+            colorCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد رنگ" },
+            percentage: { value: '', text: '', required: true, touched: false, type: inputType.number, label: "درصد رنگ" },
         },
         table: {
             allowPagination: true,
@@ -67,7 +66,7 @@ class AddNewColor extends Component {
     }
 
     handleChange = (name, value, text) => {
-        //console.log(name, value, text)
+        console.log(name, value, text)
         let updatedState = { ...this.state };
         updatedState.inputs[name].value = value;
         updatedState.inputs[name].text = text;
@@ -80,19 +79,22 @@ class AddNewColor extends Component {
 
     }
 
+    handleAddColors = e => {
+
+    }
+
     render() {
         return (
             <React.Fragment>
                 <ComponentsHeader>ثبت رنگ جدید</ComponentsHeader>
-                <Modal size="md"
-                    buttonText="تایید"
-                    buttonFunc={this.handleModalButton}
-                    title="ثبت ترکیبات"
-                    show={this.state.showModal}
+                <AddColorsModal
                     handleClose={() => this.setState({ showModal: false })}
-                >
-                    123
-                </Modal>
+                    handleChange={this.handleChange}
+                    colorCode={this.state.inputs.colorCode}
+                    percentage={this.state.inputs.percentage}
+                    handleModalButton={this.handleModalButton}
+                    show={this.state.showModal}
+                    handleAddColors={this.handleAddColors} />
                 <div className="row">
                     <div className="col-md-3">
                         <Input {...this.state.inputs.colorName}
