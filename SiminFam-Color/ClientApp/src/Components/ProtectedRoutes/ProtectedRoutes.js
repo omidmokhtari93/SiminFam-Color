@@ -3,9 +3,6 @@ import ErrorBoundary from '../../Shared/ErrorBoundary/ErrorBoundary'
 import { Switch, Route, withRouter } from 'react-router-dom';
 import TopNavBar from '../../UI/Navbar/TopNavBar/TopNavbar'
 import Loading from '../../UI/Loading/Loading';
-import { user } from '../../Services/User.service';
-import * as action from '../../Store/ActionCreators'
-import { connect } from 'react-redux';
 
 const AddNew = lazy(() => import('../AddNew/AddNew'));
 const AddNewColor = lazy(() => import('../AddNewColor/AddNewColor'));
@@ -18,17 +15,7 @@ const LoadingElement = <div className="text-center">
 
 
 const ProtectedRoutes = props => {
-    useEffect(() => {
-        user.checkLogin().then(data => {
-            if (data) {
-                props.history.replace('/main/addnewcolor')
-                props.storeUserData(data.data)
-            } else {
-                user.logout()
-                props.history.replace('/login')
-            }
-        })
-    }, [])
+
     return (
         <React.Fragment>
             <TopNavBar />
@@ -48,10 +35,5 @@ const ProtectedRoutes = props => {
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        storeUserData: (value) => dispatch(action.storeUserData(value))
-    }
-}
 
-export default connect(null, mapDispatchToProps)(withRouter(ProtectedRoutes));
+export default withRouter(ProtectedRoutes);
