@@ -36,8 +36,7 @@ class AddNew extends Component {
             },
             url: "GetProducts",
             buttons: {
-                edit: 'ویرایش',
-                sabt: 'ثبت'
+                edit: 'ویرایش'
             },
             action: action.submit,
             tableClick: (key, obj) => this.handleTableButtonsClick(key, obj)

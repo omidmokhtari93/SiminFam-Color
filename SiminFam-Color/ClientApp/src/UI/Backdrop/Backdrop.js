@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Backdrop.module.scss';
+import styles from './Backdrop.module.css';
 import propTypes from 'prop-types';
 
 const Backdrop = props => {
@@ -9,7 +9,9 @@ const Backdrop = props => {
             style={props.show
                 ? { display: 'block' }
                 : { display: 'none' }}
-        ></div>
+        >
+            {props.children}
+        </div>
     )
 }
 

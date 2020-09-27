@@ -4,7 +4,6 @@ import * as inputTypes from '../../Shared/inputTypes';
 import SearchBox from '../SearchBox/SearchBox';
 import DatePicker from 'react-modern-calendar-datepicker';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import { data } from 'jquery';
 
 class Input extends Component {
     ref = React.createRef();

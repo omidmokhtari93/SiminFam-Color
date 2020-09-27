@@ -8,10 +8,14 @@ import FormBuilder from '../../UI/FormBuilder/FormBuilder';
 import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 import { ButtonActivation } from '../../UI/Buttons/ButtonActivation'
 import { CheckInputsValidation } from '../../UI/Inputs/CheckInputsValidation'
+import Input from '../../UI/Inputs/Input';
+import Button from '../../UI/Buttons/Button';
+import Modal from '../../UI/Modal/Modal';
 
 class AddNewColor extends Component {
     state = {
         inputs: {
+            colorName: { value: '', text: '', required: true, touched: false, type: inputType.text, label: "نام رنگ" },
             tempCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد موقت" },
             finalCode: { value: '', text: '', required: true, touched: false, type: inputType.englishText, label: "کد نهایی" },
             accept: { value: '', text: '', required: false, touched: false, type: inputType.checkbox, label: "تایید" },
@@ -52,7 +56,8 @@ class AddNewColor extends Component {
                 visible: false,
                 text: 'انصراف',
             }
-        }
+        },
+        showModal: false
     }
 
     handleTableButtonsClick = (key, obj) => {
@@ -71,18 +76,44 @@ class AddNewColor extends Component {
         this.setState({ ...updatedState })
     }
 
+    handleModalButton = e => {
+
+    }
+
     render() {
         return (
             <React.Fragment>
                 <ComponentsHeader>ثبت رنگ جدید</ComponentsHeader>
-                <FormBuilder
+                <Modal size="md"
+                    buttonText="تایید"
+                    buttonFunc={this.handleModalButton}
+                    title="ثبت ترکیبات"
+                    show={this.state.showModal}
+                    handleClose={() => this.setState({ showModal: false })}
+                >
+                    123
+                </Modal>
+                <div className="row">
+                    <div className="col-md-3">
+                        <Input {...this.state.inputs.colorName}
+                            handleChange={this.handleChange}
+                            name='colorName'
+                        />
+                    </div>
+                    <div className="col-md-3 text-right">
+                        <div>&nbsp;</div>
+                        <button className="btn btn-primary"
+                            onClick={() => this.setState({ showModal: true })}>ثبت ترکیبات</button>
+                    </div>
+                </div>
+                {/* <FormBuilder
                     inputs={this.state.inputs}
                     handleChange={this.handleChange}
                     column="3"
-                />
-                <FormBuilder
-                    inputs={this.state.addColorInputs} />
-                <Table {...this.state.table} />
+                /> */}
+                {/* <FormBuilder
+                    inputs={this.state.addColorInputs} /> */}
+                {/* <Table {...this.state.table} /> */}
             </React.Fragment>
         )
     }

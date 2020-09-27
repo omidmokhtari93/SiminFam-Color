@@ -1,0 +1,10 @@
+.modal {
+    z-index: 99999;
+    transition: 0.5s;
+}
+
+.close {
+    outline: none !important;
+    margin: 5px 0 0 0 !important;
+    padding: 0 !important;
+}
