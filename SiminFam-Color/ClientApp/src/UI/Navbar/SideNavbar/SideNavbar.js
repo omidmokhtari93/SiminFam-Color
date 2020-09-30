@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './SideNavbar.scss';
+import React, { useEffect } from 'react';
+import './SideNavbar.scss';
 import NavBarItems from '../NavBarItems/NavBarItem';
 import CloseButton from '../CloseButton/CloseButton';
 import Backdrop from '../../Backdrop/Backdrop';
