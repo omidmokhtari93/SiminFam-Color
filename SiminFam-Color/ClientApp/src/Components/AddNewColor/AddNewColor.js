@@ -9,9 +9,7 @@ import * as buttonTypes from '../../UI/Buttons/ButtonTypes';
 import { ButtonActivation } from '../../UI/Buttons/ButtonActivation'
 import { CheckInputsValidation } from '../../UI/Inputs/CheckInputsValidation'
 import Input from '../../UI/Inputs/Input';
-import Button from '../../UI/Buttons/Button';
-import Modal from '../../UI/Modal/Modal';
-import AddColorsModal from './AddColors/AddColors';
+import AddColorsModal from './AddColors/AddColorsModal';
 
 class AddNewColor extends Component {
     state = {
