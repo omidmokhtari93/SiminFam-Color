@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import './UserInfo.scss'
 
@@ -15,4 +15,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(UserInfo);
+export default memo(connect(mapStateToProps, null)(UserInfo));

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, memo } from "react";
 import './Table.scss'
 import http from '../../Helpers/axios';
 import Loading from '../Loading/Loading'
@@ -127,4 +127,4 @@ class Table extends Component {
     }
 }
 
-export default Table;
+export default memo(Table);

@@ -2,15 +2,15 @@ import React from 'react';
 import styles from './Backdrop.module.css';
 import propTypes from 'prop-types';
 
-const Backdrop = props => {
+const Backdrop = ({ show, dismiss, children }) => {
     return (
         <div className={styles.backdrop}
-            onClick={() => props.dismiss('close')}
-            style={props.show
+            onClick={() => dismiss('close')}
+            style={show
                 ? { display: 'block' }
                 : { display: 'none' }}
         >
-            {props.children}
+            {children}
         </div>
     )
 }

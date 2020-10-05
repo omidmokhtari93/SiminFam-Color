@@ -15,13 +15,13 @@ const setClass = type => {
     }
 }
 
-const Buttons = props => {
-    if (!props.elements) return null;
-    let btns = Object.keys(props.elements).map((btn, idx) => {
-        return props.elements[btn].visible &&
-            <button key={idx} disabled={!props.elements[btn].enable}
+const Buttons = ({ elements, handleChange }) => {
+    if (!elements) return null;
+    let btns = Object.keys(elements).map((btn, idx) => {
+        return elements[btn].visible &&
+            <button key={idx} disabled={!elements[btn].enable}
                 className={'btn btn-md ' + setClass(btn)}
-                onClick={() => props.handleChange(btn)}>{props.elements[btn].text}</button>
+                onClick={() => handleChange(btn)}>{elements[btn].text}</button>
 
     })
 

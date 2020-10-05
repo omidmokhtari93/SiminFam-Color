@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import './SideNavbar.scss';
 import NavBarItems from '../NavBarItems/NavBarItem';
 import CloseButton from '../CloseButton/CloseButton';
@@ -28,4 +28,4 @@ const SideNavbar = props => {
     )
 }
 
-export default SideNavbar;
+export default memo(SideNavbar);

@@ -29,10 +29,10 @@ export const user = {
     logout: async () => token.remove()
 }
 
-const createNotif = (data) => {
+const createNotif = ({ type, message }) => {
     store.addNotification({
-        type: data.type,
-        message: data.message,
+        type: type,
+        message: message,
         ...config
     })
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 import './TopNavbar.scss';
 import SideNavar from '../SideNavbar/SideNavbar'
 import ShowButton from '../ShowButton/ShowButton';
@@ -52,4 +52,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default memo(Navbar);

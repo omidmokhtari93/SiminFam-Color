@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styles from './ShowButton.module.scss';
 
 const CloseButton = props => {
@@ -9,4 +9,4 @@ const CloseButton = props => {
         </div>
     )
 }
-export default CloseButton;
+export default memo(CloseButton);

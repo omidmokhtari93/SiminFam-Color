@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './NavBarItems.scss';
 import { NavLink, withRouter } from 'react-router-dom';
 import { user } from '../../../Services/User.service';
@@ -36,4 +36,4 @@ const NavBarItems = props => {
     )
 }
 
-export default withRouter(NavBarItems);
+export default memo(withRouter(NavBarItems));
